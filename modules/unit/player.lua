@@ -2,29 +2,23 @@ DFRL:NewDefaults("Player", {
     enabled = {true},
     playerDarkMode = {0, "slider", {0, 1}, nil, "Appearance", 1, "Adjust dark mode intensity", nil, nil},
     playerColor = {{1, 1, 1}, "colour", nil, nil, "Appearance", 2, "Change player color", nil, nil},
-    eliteBorder = {"standard", "dropdown", {"standard", "rare", "elite", "rare-elite", "boss", "dfrl evolved", "dfrl nebula"}, nil, "Appearance", 3, "Changes the texture of the playerframe", nil, nil},
+    eliteBorder = {"standard", "dropdown",
+                   {"standard", "rare", "elite", "rare-elite", "boss", "dfrl evolved", "dfrl nebula"}, nil,
+                   "Appearance", 3, "Changes the texture of the playerframe", nil, nil},
     frameScale = {1, "slider", {0.7, 1.3}, nil, "Appearance", 4, "Adjust frame size", nil, nil},
     classPortrait = {false, "checkbox", nil, nil, "Appearance", 5, "Activate 2D class portrait icons", nil, nil},
     frameHide = {false, "checkbox", nil, nil, "Appearance", 6, "Hide frame at full HP when not in combat", nil, nil},
     textShow = {true, "checkbox", nil, nil, "Text", 7, "Show health and mana text", nil, nil},
     textMaxShow = {true, "checkbox", nil, "textShow", "Text", 8, "Show max health and mana text", nil, nil},
     noPercent = {true, "checkbox", nil, "textShow", "Text", 9, "Show only current values without percentages", nil, nil},
-    textColoringHealth = {false, "checkbox", nil, "textShow", "Text", 10, "Color text based on health percentage from white to red", nil, nil},
-    textColoringResource = {false, "checkbox", nil, "textShow", "Text", 11, "Color text based on resource (mana/rage/energy) percentage from white to red", nil, nil},
-    frameFont = {"Prototype", "dropdown", {
-        "FRIZQT__.TTF",
-        "Expressway",
-        "Homespun",
-        "Hooge",
-        "Myriad-Pro",
-        "Prototype",
-        "PT-Sans-Narrow-Bold",
-        "PT-Sans-Narrow-Regular",
-        "RobotoMono",
-        "BigNoodleTitling",
-        "Continuum",
-        "DieDieDie"
-    }, nil, "Text", 12, "Change the font used for the playerframe", nil, nil},
+    textColoringHealth = {false, "checkbox", nil, "textShow", "Text", 10,
+                          "Color text based on health percentage from white to red", nil, nil},
+    textColoringResource = {false, "checkbox", nil, "textShow", "Text", 11,
+                            "Color text based on resource (mana/rage/energy) percentage from white to red", nil, nil},
+    frameFont = {"Prototype", "dropdown",
+                 {"FRIZQT__.TTF", "Expressway", "Homespun", "Hooge", "Myriad-Pro", "Prototype", "PT-Sans-Narrow-Bold",
+                  "PT-Sans-Narrow-Regular", "RobotoMono", "BigNoodleTitling", "Continuum", "DieDieDie"}, nil, "Text",
+                 12, "Change the font used for the playerframe", nil, nil},
     healthSize = {15, "slider", {8, 20}, "textShow", "Text", 13, "Health text font size", nil, nil},
     manaSize = {9, "slider", {8, 20}, "textShow", "Text", 14, "Mana text font size", nil, nil},
     nameSize = {9, "slider", {6, 16}, nil, "Text", 15, "Name text font size", nil, nil},
@@ -33,15 +27,21 @@ DFRL:NewDefaults("Player", {
     enablePulse = {true, "checkbox", nil, nil, "Health Bar", 18, "Enable pulse animation on bars", nil, nil},
     pulseColor = {{1, 1, 1}, "colour", nil, "enablePulse", "Health Bar", 19, "Color for pulse animation", nil, nil},
     enableCutout = {true, "checkbox", nil, nil, "Health Bar", 20, "Enable cutout animation on bars", nil, nil},
-    cutoutColor = {{1, 0, 0}, "colour", nil, "enableCutout", "Health Bar", 21, "Color for damage cutout effect", nil, nil},
+    cutoutColor = {{1, 0, 0}, "colour", nil, "enableCutout", "Health Bar", 21, "Color for damage cutout effect", nil,
+                   nil},
     energyTick = {true, "checkbox", nil, nil, "Health Bar", 22, "Show energy and mana tick indicators", nil, nil},
     combatGlow = {true, "checkbox", nil, nil, "Combat Effects", 23, "Enable combat pulse animation", nil, nil},
-    glowSpeed = {1, "slider", {0.4, 5}, "combatGlow", "Combat Effects", 24, "Adjust the speed of the combat pulsing", nil, nil},
-    glowAlpha = {1, "slider", {0.1, 1}, "combatGlow", "Combat Effects", 25, "Adjust the maximum alpha of the combat pulsing", nil, nil},
+    glowSpeed = {1, "slider", {0.4, 5}, "combatGlow", "Combat Effects", 24, "Adjust the speed of the combat pulsing",
+                 nil, nil},
+    glowAlpha = {1, "slider", {0.1, 1}, "combatGlow", "Combat Effects", 25,
+                 "Adjust the maximum alpha of the combat pulsing", nil, nil},
     restingGlow = {true, "checkbox", nil, nil, "Resting Effects", 26, "Enable resting glow animation", nil, nil},
-    restingSpeed = {1, "slider", {0.4, 5}, "restingGlow", "Resting Effects", 27, "Adjust the speed of the resting pulsing", nil, nil},
-    restingAlpha = {1, "slider", {0.1, 1}, "restingGlow", "Resting Effects", 28, "Adjust the maximum alpha of the resting pulsing", nil, nil},
-    restingColor = {{0, 1, 1}, "colour", nil, "restingGlow", "Resting Effects", 29, "Changes the colour of the resting glow animation", nil, nil},
+    restingSpeed = {1, "slider", {0.4, 5}, "restingGlow", "Resting Effects", 27,
+                    "Adjust the speed of the resting pulsing", nil, nil},
+    restingAlpha = {1, "slider", {0.1, 1}, "restingGlow", "Resting Effects", 28,
+                    "Adjust the maximum alpha of the resting pulsing", nil, nil},
+    restingColor = {{0, 1, 1}, "colour", nil, "restingGlow", "Resting Effects", 29,
+                    "Changes the colour of the resting glow animation", nil, nil}
 })
 
 DFRL:NewMod("Player", 1, function()
@@ -57,7 +57,7 @@ DFRL:NewMod("Player", 1, function()
         combatGlow = {
             fadeSpeed = 1.0,
             alphaMin = 0,
-            alphaMax = 1.0,
+            alphaMax = 1.0
         },
 
         restingOverlay = nil,
@@ -66,7 +66,7 @@ DFRL:NewMod("Player", 1, function()
             fadeSpeed = 1.0,
             alphaMin = 0,
             alphaMax = 1.0,
-            color = {0, 1, 1},
+            color = {0, 1, 1}
         },
 
         texts = {
@@ -86,7 +86,7 @@ DFRL:NewMod("Player", 1, function()
                 nameColor = {1, .82, 0},
                 levelColor = {1, .82, 0},
                 healthColor = {1, 1, 1},
-                manaColor = {1, 1, 1},
+                manaColor = {1, 1, 1}
             }
         }
     }
@@ -202,18 +202,28 @@ DFRL:NewMod("Player", 1, function()
     end
 
     function Setup:CombatGlow()
-        function _G.PlayerFrame_UpdateStatus() end
+        function _G.PlayerFrame_UpdateStatus()
+        end
         PlayerAttackGlow:SetTexture("")
         PlayerAttackIcon:SetTexture("")
         Setup.combatOverlay = CreateFrame("Frame", nil, PlayerFrame)
         Setup.combatOverlay:SetAllPoints(PlayerFrame)
         Setup.combatOverlay:SetFrameStrata("MEDIUM")
         Setup.combatOverlayTex = Setup.combatOverlay:CreateTexture(nil, "OVERLAY")
-        Setup.combatOverlayTex:SetTexture(Setup.texpath.. "UI-Player-Status.blp")
+        Setup.combatOverlayTex:SetTexture(Setup.texpath .. "UI-Player-Status.blp")
         Setup.combatOverlayTex:SetPoint("CENTER", PlayerFrame, "CENTER", 45, -21)
         Setup.combatOverlayTex:SetVertexColor(1, 0, 0)
         Setup.combatOverlayTex:SetBlendMode("ADD")
         Setup.combatOverlayTex:SetAlpha(0)
+
+        Setup.combatIdentifier = Setup.combatOverlay:CreateTexture(nil, "OVERLAY")
+        Setup.combatIdentifier:SetTexture(Setup.texpath .. "Ability_DualWield.blp")
+        Setup.combatIdentifier:SetPoint("CENTER", PlayerFrame, "CENTER", -64, -10)
+        Setup.combatIdentifier:SetWidth(24)
+        Setup.combatIdentifier:SetHeight(24)
+        Setup.combatIdentifier:SetVertexColor(1, 0.8, 0.8)
+        Setup.combatIdentifier:SetBlendMode("ADD")
+        Setup.combatIdentifier:SetAlpha(0)
     end
 
     function Setup:RestingGlow()
@@ -223,9 +233,10 @@ DFRL:NewMod("Player", 1, function()
         Setup.restingOverlay:SetAllPoints(PlayerFrame)
         Setup.restingOverlay:SetFrameStrata("MEDIUM")
         Setup.restingOverlayTex = Setup.restingOverlay:CreateTexture(nil, "OVERLAY")
-        Setup.restingOverlayTex:SetTexture(Setup.texpath.. "UI-Player-Status.blp")
+        Setup.restingOverlayTex:SetTexture(Setup.texpath .. "UI-Player-Status.blp")
         Setup.restingOverlayTex:SetPoint("CENTER", PlayerFrame, "CENTER", 45, -21)
-        Setup.restingOverlayTex:SetVertexColor(Setup.restingGlow.color[1], Setup.restingGlow.color[2], Setup.restingGlow.color[3])
+        Setup.restingOverlayTex:SetVertexColor(Setup.restingGlow.color[1], Setup.restingGlow.color[2],
+            Setup.restingGlow.color[3])
         Setup.restingOverlayTex:SetBlendMode("ADD")
         Setup.restingOverlayTex:SetAlpha(0)
     end
@@ -236,16 +247,26 @@ DFRL:NewMod("Player", 1, function()
         restingAnimation:SetWidth(24)
         restingAnimation:SetHeight(24)
         local texture = restingAnimation:CreateTexture(nil, "OVERLAY")
-        texture:SetTexture(Setup.texpath.. "UIUnitFrameRestingFlipbook")
+        texture:SetTexture(Setup.texpath .. "UIUnitFrameRestingFlipbook")
         texture:SetAllPoints(restingAnimation)
-        local texCoords = {
-            {0/512, 60/512, 0/512, 60/512}, {60/512, 120/512, 0/512, 60/512}, {120/512, 180/512, 0/512, 60/512}, {180/512, 240/512, 0/512, 60/512}, {240/512, 300/512, 0/512, 60/512}, {300/512, 360/512, 0/512, 60/512},
-            {0/512, 60/512, 60/512,120/512}, {60/512, 120/512, 60/512, 120/512}, {120/512, 180/512, 60/512, 120/512}, {180/512, 240/512, 60/512, 120/512}, {240/512, 300/512, 60/512, 120/512}, {300/512, 360/512, 60/512, 120/512},
-            {0/512, 60/512, 120/512, 180/512}, {60/512, 120/512, 120/512, 180/512}, {120/512, 180/512, 120/512, 180/512}, {180/512, 240/512, 120/512, 180/512}, {240/512, 300/512, 120/512, 180/512}, {300/512, 360/512, 120/512, 180/512},
-            {0/512, 60/512, 180/512, 240/512}, {60/512, 120/512, 180/512, 240/512}, {120/512, 180/512, 180/512, 240/512}, {180/512, 240/512, 180/512, 240/512}, {240/512, 300/512, 180/512, 240/512}, {300/512, 360/512, 180/512, 240/512},
-            {0/512, 60/512, 240/512, 300/512}, {60/512, 120/512, 240/512, 300/512}, {120/512, 180/512, 240/512, 300/512}, {180/512, 240/512, 240/512, 300/512}, {240/512, 300/512, 240/512, 300/512}, {300/512, 360/512, 240/512, 300/512},
-            {0/512, 60/512, 300/512, 360/512}, {60/512, 120/512, 300/512, 360/512}, {120/512, 180/512, 300/512, 360/512}, {180/512, 240/512, 300/512, 360/512}, {240/512, 300/512, 300/512, 360/512}, {300/512, 360/512, 300/512, 360/512},
-        }
+        local texCoords = {{0 / 512, 60 / 512, 0 / 512, 60 / 512}, {60 / 512, 120 / 512, 0 / 512, 60 / 512},
+                           {120 / 512, 180 / 512, 0 / 512, 60 / 512}, {180 / 512, 240 / 512, 0 / 512, 60 / 512},
+                           {240 / 512, 300 / 512, 0 / 512, 60 / 512}, {300 / 512, 360 / 512, 0 / 512, 60 / 512},
+                           {0 / 512, 60 / 512, 60 / 512, 120 / 512}, {60 / 512, 120 / 512, 60 / 512, 120 / 512},
+                           {120 / 512, 180 / 512, 60 / 512, 120 / 512}, {180 / 512, 240 / 512, 60 / 512, 120 / 512},
+                           {240 / 512, 300 / 512, 60 / 512, 120 / 512}, {300 / 512, 360 / 512, 60 / 512, 120 / 512},
+                           {0 / 512, 60 / 512, 120 / 512, 180 / 512}, {60 / 512, 120 / 512, 120 / 512, 180 / 512},
+                           {120 / 512, 180 / 512, 120 / 512, 180 / 512}, {180 / 512, 240 / 512, 120 / 512, 180 / 512},
+                           {240 / 512, 300 / 512, 120 / 512, 180 / 512}, {300 / 512, 360 / 512, 120 / 512, 180 / 512},
+                           {0 / 512, 60 / 512, 180 / 512, 240 / 512}, {60 / 512, 120 / 512, 180 / 512, 240 / 512},
+                           {120 / 512, 180 / 512, 180 / 512, 240 / 512}, {180 / 512, 240 / 512, 180 / 512, 240 / 512},
+                           {240 / 512, 300 / 512, 180 / 512, 240 / 512}, {300 / 512, 360 / 512, 180 / 512, 240 / 512},
+                           {0 / 512, 60 / 512, 240 / 512, 300 / 512}, {60 / 512, 120 / 512, 240 / 512, 300 / 512},
+                           {120 / 512, 180 / 512, 240 / 512, 300 / 512}, {180 / 512, 240 / 512, 240 / 512, 300 / 512},
+                           {240 / 512, 300 / 512, 240 / 512, 300 / 512}, {300 / 512, 360 / 512, 240 / 512, 300 / 512},
+                           {0 / 512, 60 / 512, 300 / 512, 360 / 512}, {60 / 512, 120 / 512, 300 / 512, 360 / 512},
+                           {120 / 512, 180 / 512, 300 / 512, 360 / 512}, {180 / 512, 240 / 512, 300 / 512, 360 / 512},
+                           {240 / 512, 300 / 512, 300 / 512, 360 / 512}, {300 / 512, 360 / 512, 300 / 512, 360 / 512}}
 
         local currentFrame = 1
         local totalFrames = table.getn(texCoords)
@@ -322,7 +343,7 @@ DFRL:NewMod("Player", 1, function()
                 if this.mode == 'MANA' and diff < 0 then
                     this.target = 5
                 elseif this.mode == 'MANA' and diff > 0 then
-                    if this.max ~= 5 and diff > (this.badtick and this.badtick*1.2 or 5) then
+                    if this.max ~= 5 and diff > (this.badtick and this.badtick * 1.2 or 5) then
                         this.target = 2
                     else
                         this.badtick = diff
@@ -363,7 +384,8 @@ DFRL:NewMod("Player", 1, function()
     callbacks.playerDarkMode = function(value)
         local intensity = DFRL:GetTempDB("Player", "playerDarkMode")
         local playerColor = DFRL:GetTempDB("Player", "playerColor")
-        local r, g, b = playerColor[1] * (1 - intensity), playerColor[2] * (1 - intensity), playerColor[3] * (1 - intensity)
+        local r, g, b = playerColor[1] * (1 - intensity), playerColor[2] * (1 - intensity),
+            playerColor[3] * (1 - intensity)
         local color = value and {r, g, b} or {1, 1, 1}
 
         PlayerFrameTexture:SetVertexColor(color[1], color[2], color[3])
@@ -481,7 +503,7 @@ DFRL:NewMod("Player", 1, function()
         callbacks.textShow(DFRL:GetTempDB("Player", "textShow"))
     end
 
-    callbacks.textColoringHealth  = function(value)
+    callbacks.textColoringHealth = function(value)
         local health = UnitHealth("player")
         local maxHealth = UnitHealthMax("player")
         local healthPercent = maxHealth > 0 and (health / maxHealth) or 1
@@ -609,7 +631,9 @@ DFRL:NewMod("Player", 1, function()
 
             if health == maxHealth and not inCombat then
                 PlayerFrame:Hide()
-                if restingAnimation then restingAnimation:Hide() end
+                if restingAnimation then
+                    restingAnimation:Hide()
+                end
             else
                 PlayerFrame:Show()
                 if restingAnimation and IsResting() then
@@ -644,27 +668,29 @@ DFRL:NewMod("Player", 1, function()
     callbacks.classPortrait = function(value)
         if value then
             local CLASS_ICON_TCOORDS = {
-                ["WARRIOR"] = { 0, 0.25, 0, 0.25 },
-                ["MAGE"] = { 0.25, 0.49609375, 0, 0.25 },
-                ["ROGUE"] = { 0.49609375, 0.7421875, 0, 0.25 },
-                ["DRUID"] = { 0.7421875, 0.98828125, 0, 0.25 },
-                ["HUNTER"] = { 0, 0.25, 0.25, 0.5 },
-                ["SHAMAN"] = { 0.25, 0.49609375, 0.25, 0.5 },
-                ["PRIEST"] = { 0.49609375, 0.7421875, 0.25, 0.5 },
-                ["WARLOCK"] = { 0.7421875, 0.98828125, 0.25, 0.5 },
-                ["PALADIN"] = { 0, 0.25, 0.5, 0.75 },
-                ["DEATHKNIGHT"] = { 0.25, .5, 0.5, .75 },
+                ["WARRIOR"] = {0, 0.25, 0, 0.25},
+                ["MAGE"] = {0.25, 0.49609375, 0, 0.25},
+                ["ROGUE"] = {0.49609375, 0.7421875, 0, 0.25},
+                ["DRUID"] = {0.7421875, 0.98828125, 0, 0.25},
+                ["HUNTER"] = {0, 0.25, 0.25, 0.5},
+                ["SHAMAN"] = {0.25, 0.49609375, 0.25, 0.5},
+                ["PRIEST"] = {0.49609375, 0.7421875, 0.25, 0.5},
+                ["WARLOCK"] = {0.7421875, 0.98828125, 0.25, 0.5},
+                ["PALADIN"] = {0, 0.25, 0.5, 0.75},
+                ["DEATHKNIGHT"] = {0.25, .5, 0.5, .75}
             }
 
             DFRL.UpdatePortraits = function(frame)
-                if not frame or not frame.unit then return end
+                if not frame or not frame.unit then
+                    return
+                end
 
                 local _, class = UnitClass(frame.unit)
                 class = UnitIsPlayer(frame.unit) and class or nil
 
                 if class and frame.portrait then
                     local iconCoords = CLASS_ICON_TCOORDS[class]
-                    frame.portrait:SetTexture(Setup.texpath2 .."UI-Classes-Circles.tga")
+                    frame.portrait:SetTexture(Setup.texpath2 .. "UI-Classes-Circles.tga")
                     frame.portrait:SetTexCoord(unpack(iconCoords))
                 elseif not class and frame.portrait then
                     frame.portrait:SetTexCoord(0, 1, 0, 1)
@@ -707,7 +733,8 @@ DFRL:NewMod("Player", 1, function()
         else
             -- disable class portraits
             -- restore original function by setting hook function to nothing
-            DFRL.UpdatePortraits = function() end
+            DFRL.UpdatePortraits = function()
+            end
 
             -- unregister events
             if DFRL.portraitEvents then
@@ -743,8 +770,10 @@ DFRL:NewMod("Player", 1, function()
         PlayerFrame:SetScale(value)
     end
 
-    callbacks.combatGlow = function (value)
-        if not Setup.combatOverlay or not Setup.combatOverlayTex then return end
+    callbacks.combatGlow = function(value)
+        if not Setup.combatOverlay or not Setup.combatOverlayTex or not Setup.combatIdentifier then
+            return
+        end
 
         local pulseTime = 0
         local pulseDuration = 1 / Setup.combatGlow.fadeSpeed
@@ -761,8 +790,11 @@ DFRL:NewMod("Player", 1, function()
                 if not UnitAffectingCombat("player") then
                     local alpha = Setup.combatOverlayTex:GetAlpha()
                     alpha = alpha - (Setup.combatGlow.fadeSpeed * elapsed * 2)
-                    if alpha < 0 then alpha = PlayerFrameHealthBar:GetAlpha() * 0 end
+                    if alpha < 0 then
+                        alpha = PlayerFrameHealthBar:GetAlpha() * 0
+                    end
                     Setup.combatOverlayTex:SetAlpha(alpha)
+                    Setup.combatIdentifier:SetAlpha(alpha)
                     DFRL.activeScripts["CombatGlowScript"] = true
                     return
                 end
@@ -772,13 +804,16 @@ DFRL:NewMod("Player", 1, function()
                     pulseTime = pulseTime - pulseDuration
                 end
                 local progress = pulseTime / pulseDuration
-                local alpha = Setup.combatGlow.alphaMin + (Setup.combatGlow.alphaMax - Setup.combatGlow.alphaMin) * (0.5 + 0.5 * math.sin(progress * 2 * math.pi))
+                local alpha = Setup.combatGlow.alphaMin + (Setup.combatGlow.alphaMax - Setup.combatGlow.alphaMin) *
+                                  (0.5 + 0.5 * math.sin(progress * 2 * math.pi))
                 Setup.combatOverlayTex:SetAlpha(alpha)
+                Setup.combatIdentifier:SetAlpha(alpha)
                 DFRL.activeScripts["CombatGlowScript"] = true
             end)
         else
             Setup.combatOverlay:SetScript("OnUpdate", nil)
             Setup.combatOverlayTex:SetAlpha(0)
+            Setup.combatIdentifier:SetAlpha(0)
         end
 
         local f = CreateFrame("Frame")
@@ -805,7 +840,9 @@ DFRL:NewMod("Player", 1, function()
     end
 
     callbacks.restingGlow = function(value)
-        if not Setup.restingOverlay or not Setup.restingOverlayTex then return end
+        if not Setup.restingOverlay or not Setup.restingOverlayTex then
+            return
+        end
 
         local pulseTime = 0
         local pulseDuration = 1 / Setup.restingGlow.fadeSpeed
@@ -822,7 +859,9 @@ DFRL:NewMod("Player", 1, function()
                 if not IsResting() then
                     local alpha = Setup.restingOverlayTex:GetAlpha()
                     alpha = alpha - (Setup.restingGlow.fadeSpeed * elapsed * 2)
-                    if alpha < 0 then alpha = PlayerFrameHealthBar:GetAlpha() * 0 end
+                    if alpha < 0 then
+                        alpha = PlayerFrameHealthBar:GetAlpha() * 0
+                    end
                     Setup.restingOverlayTex:SetAlpha(alpha)
                     DFRL.activeScripts["RestingGlowScript"] = true
                     return
@@ -834,7 +873,8 @@ DFRL:NewMod("Player", 1, function()
                 end
                 local progress = pulseTime / pulseDuration
 
-                local alpha = Setup.restingGlow.alphaMin + (Setup.restingGlow.alphaMax - Setup.restingGlow.alphaMin) * (0.5 + 0.5 * math.sin(progress * 2 * math.pi))
+                local alpha = Setup.restingGlow.alphaMin + (Setup.restingGlow.alphaMax - Setup.restingGlow.alphaMin) *
+                                  (0.5 + 0.5 * math.sin(progress * 2 * math.pi))
                 Setup.restingOverlayTex:SetAlpha(alpha)
                 DFRL.activeScripts["RestingGlowScript"] = true
             end)
@@ -861,13 +901,15 @@ DFRL:NewMod("Player", 1, function()
         callbacks.restingGlow(DFRL:GetTempDB("Player", "restingGlow"))
     end
 
-    callbacks.restingColor = function (value)
+    callbacks.restingColor = function(value)
         Setup.restingGlow.color = value
         Setup.restingOverlayTex:SetVertexColor(value[1], value[2], value[3])
     end
 
     callbacks.energyTick = function(value)
-        if not Setup.energyTickFrame then return end
+        if not Setup.energyTickFrame then
+            return
+        end
 
         if value then
             Setup.energyTickFrame:SetScript('OnUpdate', function()
@@ -876,7 +918,9 @@ DFRL:NewMod("Player", 1, function()
                     this.target = nil
                 end
 
-                if not this.start then return end
+                if not this.start then
+                    return
+                end
 
                 this.current = GetTime() - this.start
 
@@ -929,9 +973,7 @@ DFRL:NewMod("Player", 1, function()
             f:UnregisterEvent("PLAYER_ENTERING_WORLD")
         end
 
-        if event == "PLAYER_REGEN_ENABLED" or
-        event == "PLAYER_REGEN_DISABLED" or
-        arg1 == "player" then
+        if event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED" or arg1 == "player" then
             if Setup.healthBar then
                 Setup.healthBar.max = UnitHealthMax('player')
                 Setup.healthBar:SetValue(UnitHealth('player'))

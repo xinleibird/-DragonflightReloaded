@@ -117,7 +117,7 @@ function Setup:ShaguMetaData()
             ["Show Combat Feedback"]     = {true, "checkbox", nil, nil, "raid", 15, "Show damage/healing feedback on bars", nil, nil},
             ["Show Aggro Indicators"]    = {true, "checkbox", nil, nil, "raid", 16, "Show who has aggro on raid frames", nil, nil},
             ["Use Compact Layout"]       = {true, "checkbox", nil, nil, "raid", 17, "Use tighter compact frame layout", nil, nil},
-            -- ["Show Energy Ticks"]        = {true, "checkbox", nil, nil, "tweaks", 18, "Show energy ticks for the rogue or druid class", nil, nil},
+            ["Show Energy Ticks"]        = {true, "checkbox", nil, nil, "tweaks", 18, "Show energy ticks for the rogue or druid class", nil, nil},
             ["Reveal World Map"]         = {true, "checkbox", nil, nil, "worldmap", 19, "Remove fog of war on world map", nil, nil},
         }
     }

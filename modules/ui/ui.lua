@@ -254,18 +254,22 @@ DFRL:NewMod("Ui", 5, function()
         local f = CreateFrame("Frame")
         f:RegisterEvent("PLAYER_ENTERING_WORLD")
         f:SetScript("OnEvent", function ()
+            if not UIOptionsFrame then return end
+
             UIOptionsFrame:SetParent(UIParent)
             UIOptionsFrame:SetWidth(1024)
             UIOptionsFrame:SetHeight(700)
             UIOptionsFrame:SetFrameStrata("DIALOG")
             UIOptionsFrame:ClearAllPoints()
             UIOptionsFrame:SetPoint("CENTER", 0, 0)
-            UIOptionsFrameTab1:SetFrameLevel(10)
-            UIOptionsFrameTab2:SetFrameLevel(10)
-            UIOptionsFrameDefaults:SetFrameLevel(10)
-            UIOptionsFrameCancel:SetFrameLevel(10)
-            UIOptionsFrameOkay:SetFrameLevel(10)
-            UIOptionsFrame:SetHitRectInsets(0,0,0,50)
+
+            if UIOptionsFrameTab1 and UIOptionsFrameTab1.SetFrameLevel then UIOptionsFrameTab1:SetFrameLevel(10) end
+            if UIOptionsFrameTab2 and UIOptionsFrameTab2.SetFrameLevel then UIOptionsFrameTab2:SetFrameLevel(10) end
+            if UIOptionsFrameDefaults and UIOptionsFrameDefaults.SetFrameLevel then UIOptionsFrameDefaults:SetFrameLevel(10) end
+            if UIOptionsFrameCancel and UIOptionsFrameCancel.SetFrameLevel then UIOptionsFrameCancel:SetFrameLevel(10) end
+            if UIOptionsFrameOkay and UIOptionsFrameOkay.SetFrameLevel then UIOptionsFrameOkay:SetFrameLevel(10) end
+
+            if UIOptionsFrame.SetHitRectInsets then UIOptionsFrame:SetHitRectInsets(0,0,0,50) end
         end)
 
     end

@@ -127,7 +127,9 @@ DFRL:NewMod("Menu", 1, function()
             uiBtn:SetPoint("TOP", soundBtn, "BOTTOM", 0, -self.gap)
             uiBtn:SetScript("OnClick", function()
                 self.menuframe:Hide()
-                ShowUIPanel(UIOptionsFrame)
+                if UIOptionsFrame then
+                    ShowUIPanel(UIOptionsFrame)
+                end
             end)
 
             local keyBtn = DFRL.tools.CreateButton(self.menuframe, "Key Bindings", self.btnw, self.btnh)

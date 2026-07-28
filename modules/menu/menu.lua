@@ -6,7 +6,7 @@ DFRL:NewMod("Menu", 1, function()
     local Setup = {
         menuframe = nil,
         w = 200,
-        h = 430,
+        h = 380,
         gap = 0,
         space = 15,
         btnw = 120,
@@ -50,18 +50,22 @@ DFRL:NewMod("Menu", 1, function()
             return origShowUIPanel(frame, force)
         end
 
-        local frames = {OptionsFrame, SoundOptionsFrame, UIOptionsFrame}
+        local frames = { OptionsFrame }
         for _, frame in ipairs(frames) do
             if frame then
                 local origOnShow = frame:GetScript("OnShow")
                 frame:SetScript("OnShow", function()
-                    if origOnShow then origOnShow() end
+                    if origOnShow then
+                        origOnShow()
+                    end
                     Disable_BagButtons()
                 end)
 
                 local origOnHide = frame:GetScript("OnHide")
                 frame:SetScript("OnHide", function()
-                    if origOnHide then origOnHide() end
+                    if origOnHide then
+                        origOnHide()
+                    end
                     Enable_BagButtons()
                 end)
             end
@@ -71,7 +75,7 @@ DFRL:NewMod("Menu", 1, function()
     function Setup:MenuFrame()
         if not self.menuframe then
             self.menuframe = T.CreateDFRLFrame(nil, self.w, self.h)
-            self.menuframe:SetPoint("CENTER", 0,0)
+            self.menuframe:SetPoint("CENTER", 0, 0)
             self.menuframe:EnableMouse(true)
             self.menuframe:Hide()
 
@@ -90,7 +94,6 @@ DFRL:NewMod("Menu", 1, function()
             drBtn:SetScript("OnClick", function()
                 self.menuframe:Hide()
                 _G.SlashCmdList["DFRL"]()
-
             end)
 
             local addonsBtn = DFRL.tools.CreateButton(self.menuframe, "Addon Manager", self.btnw, self.btnh)
@@ -106,46 +109,34 @@ DFRL:NewMod("Menu", 1, function()
             donationBtn:SetPoint("TOP", addonsBtn, "BOTTOM", 0, -self.space)
             donationBtn:SetScript("OnClick", function()
                 self.menuframe:Hide()
-                 ShopFrame_Toggle()
+                ShopFrame_Toggle()
             end)
 
-            local videoBtn = DFRL.tools.CreateButton(self.menuframe, "Video Options", self.btnw, self.btnh)
-            videoBtn:SetPoint("TOP", donationBtn, "BOTTOM", 0, -self.space)
-            videoBtn:SetScript("OnClick", function()
+            local optionsBtn = DFRL.tools.CreateButton(self.menuframe, "Game Options", self.btnw, self.btnh)
+            optionsBtn:SetPoint("TOP", donationBtn, "BOTTOM", 0, -self.space)
+            optionsBtn:SetScript("OnClick", function()
                 self.menuframe:Hide()
                 ShowUIPanel(OptionsFrame)
             end)
 
-            local soundBtn = DFRL.tools.CreateButton(self.menuframe, "Sound Options", self.btnw, self.btnh)
-            soundBtn:SetPoint("TOP", videoBtn, "BOTTOM", 0, -self.gap)
-            soundBtn:SetScript("OnClick", function()
-                self.menuframe:Hide()
-                ShowUIPanel(SoundOptionsFrame)
-            end)
-
-            local uiBtn = DFRL.tools.CreateButton(self.menuframe, "UI Options", self.btnw, self.btnh)
-            uiBtn:SetPoint("TOP", soundBtn, "BOTTOM", 0, -self.gap)
-            uiBtn:SetScript("OnClick", function()
-                self.menuframe:Hide()
-                if UIOptionsFrame then
-                    ShowUIPanel(UIOptionsFrame)
-                end
-            end)
-
             local keyBtn = DFRL.tools.CreateButton(self.menuframe, "Key Bindings", self.btnw, self.btnh)
-            keyBtn:SetPoint("TOP", uiBtn, "BOTTOM", 0, -self.space)
+            keyBtn:SetPoint("TOP", optionsBtn, "BOTTOM", 0, -self.space)
             keyBtn:SetScript("OnClick", function()
                 self.menuframe:Hide()
                 KeyBindingFrame_LoadUI()
                 if KeyBindingFrame then
                     local origOnShow = KeyBindingFrame:GetScript("OnShow")
                     KeyBindingFrame:SetScript("OnShow", function()
-                        if origOnShow then origOnShow() end
+                        if origOnShow then
+                            origOnShow()
+                        end
                         Disable_BagButtons()
                     end)
                     local origOnHide = KeyBindingFrame:GetScript("OnHide")
                     KeyBindingFrame:SetScript("OnHide", function()
-                        if origOnHide then origOnHide() end
+                        if origOnHide then
+                            origOnHide()
+                        end
                         Enable_BagButtons()
                     end)
                 end
@@ -160,12 +151,16 @@ DFRL:NewMod("Menu", 1, function()
                 if MacroFrame then
                     local origOnShow = MacroFrame:GetScript("OnShow")
                     MacroFrame:SetScript("OnShow", function()
-                        if origOnShow then origOnShow() end
+                        if origOnShow then
+                            origOnShow()
+                        end
                         Disable_BagButtons()
                     end)
                     local origOnHide = MacroFrame:GetScript("OnHide")
                     MacroFrame:SetScript("OnHide", function()
-                        if origOnHide then origOnHide() end
+                        if origOnHide then
+                            origOnHide()
+                        end
                         Enable_BagButtons()
                     end)
                 end

@@ -83,14 +83,11 @@ DFRL:NewMod("ComboPoints", 1, function()
         end
         AnchorToTarget()
         local n = GetComboPoints() or 0
-        if n < 1 then
-            container:Hide()
-            return
-        end
+        if n > MAX_COMBO_POINTS then n = MAX_COMBO_POINTS end
 
         container:Show()
         for i = 1, MAX_COMBO_POINTS do
-            if i <= n then
+            if i <= n and n > 0 then
                 local r, g, b = PipColor(i)
                 pips[i].tex:SetTexture(r, g, b, 0.85)
             else

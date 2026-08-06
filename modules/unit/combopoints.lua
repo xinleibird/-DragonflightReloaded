@@ -66,6 +66,9 @@ DFRL:NewMod("ComboPoints", 1, function()
         -- Each pip is a mini StatusBar matching the unit-frame style:
         -- semi-transparent black bg + opaque colored fill texture.
         local pip = CreateStatusBar(container, 20, 20)
+        pip.fill:ClearAllPoints()
+        pip.fill:SetPoint("TOPLEFT", pip, "TOPLEFT", 0, 0)
+        pip.fill:SetPoint("BOTTOMRIGHT", pip, "BOTTOMRIGHT", 0, 0)
         pip.fill:Hide()
         pips[i] = pip
         pipActive[i] = false

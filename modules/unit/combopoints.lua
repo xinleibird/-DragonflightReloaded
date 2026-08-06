@@ -32,20 +32,20 @@ DFRL:NewMod("ComboPoints", 1, function()
     container:Hide()
 
     local pips = {}
-    local pipAlpha = {}
+    local pipActive = {}
     for i = 1, MAX_COMBO_POINTS do
         local pip = CreateFrame("Frame", "DFRL_ComboPoints_Pip" .. i, container)
         pip:SetBackdrop({
             bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            tile = true, tileSize = 16, edgeSize = 16,
-            insets = { left = 3, right = 3, top = 3, bottom = 3 }
+            tile = true, tileSize = 16, edgeSize = 14,
+            insets = { left = 2, right = 2, top = 2, bottom = 2 }
         })
-        pip:SetBackdropColor(0.2, 0.2, 0.2, 0.4)
+        pip:SetBackdropColor(0.15, 0.15, 0.15, 1)
         pip:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
-        pip:SetAlpha(0.4)
+        pip:SetAlpha(1)
         pips[i] = pip
-        pipAlpha[i] = 0.4
+        pipActive[i] = false
     end
 
     local visible = false
@@ -68,14 +68,15 @@ DFRL:NewMod("ComboPoints", 1, function()
         AnchorToTarget()
         local size    = DFRL:GetTempDB("ComboPoints", "size")
         local spacing = DFRL:GetTempDB("ComboPoints", "spacing")
+        local total = MAX_COMBO_POINTS * size + (MAX_COMBO_POINTS - 1) * spacing
         for i = 1, MAX_COMBO_POINTS do
             pips[i]:SetWidth(size)
             pips[i]:SetHeight(size)
             pips[i]:ClearAllPoints()
-            pips[i]:SetPoint("LEFT", container, "LEFT",
-                             (i - 1) * (size + spacing), 0)
+            local offsetX = -total / 2 + size / 2 + (i - 1) * (size + spacing)
+            pips[i]:SetPoint("CENTER", container, "CENTER", offsetX, 0)
         end
-        container:SetWidth(MAX_COMBO_POINTS * size + (MAX_COMBO_POINTS - 1) * spacing)
+        container:SetWidth(total)
         container:SetHeight(size)
     end
 
@@ -87,39 +88,37 @@ DFRL:NewMod("ComboPoints", 1, function()
 
     local function PulsePip(pip)
         pip.pulseTime = 0
-        pip:SetScale(0.5)
+        pip:SetScale(1)
         pip:SetScript("OnUpdate", function()
             this.pulseTime = (this.pulseTime or 0) + arg1
-            local t = this.pulseTime / 0.25
+            local t = this.pulseTime / 0.4
             if t >= 1 then
                 this:SetScale(1)
                 this:SetScript("OnUpdate", nil)
                 return
             end
-            local s
-            if t < 0.4 then
-                s = 0.5 + (1.15 - 0.5) * (t / 0.4)
-            elseif t < 0.7 then
-                s = 1.15 - (1.15 - 0.9) * ((t - 0.4) / 0.3)
+            local scale
+            if t < 0.5 then
+                local nt = t * 2
+                scale = 1.0 + 0.3 * (1 - (1 - nt) * (1 - nt))
             else
-                s = 0.9 + (1.0 - 0.9) * ((t - 0.7) / 0.3)
+                local nt = (t - 0.5) * 2
+                scale = 1.3 - 0.3 * (nt * nt)
             end
-            this:SetScale(s)
+            this:SetScale(scale)
         end)
     end
 
     local function ShowCombo()
         if visible then return end
         visible = true
-        container:SetAlpha(0)
-        container:Show()
-        UIFrameFadeIn(container, 0.2, 0, 1)
+        UIFrameFadeIn(container, 0.25, 0, 1)
     end
 
     local function HideCombo()
         if not visible then return end
         visible = false
-        UIFrameFadeOut(container, 0.3, container:GetAlpha(), 0)
+        UIFrameFadeOut(container, 0.35, container:GetAlpha(), 0)
     end
 
     local function Update()
@@ -138,20 +137,17 @@ DFRL:NewMod("ComboPoints", 1, function()
 
         ShowCombo()
         for i = 1, MAX_COMBO_POINTS do
-            local r, g, b, targetAlpha
             if i <= n then
-                r, g, b = PipColor(i)
-                targetAlpha = 1
+                local r, g, b = PipColor(i)
+                pips[i]:SetBackdropColor(r, g, b, 1)
+                if not pipActive[i] then
+                    PulsePip(pips[i])
+                    pipActive[i] = true
+                end
             else
-                r, g, b = 0.2, 0.2, 0.2
-                targetAlpha = 0.4
+                pips[i]:SetBackdropColor(0.15, 0.15, 0.15, 1)
+                pipActive[i] = false
             end
-            pips[i]:SetBackdropColor(r, g, b, targetAlpha)
-            pips[i]:SetAlpha(targetAlpha)
-            if targetAlpha > 0.5 and pipAlpha[i] <= 0.5 then
-                PulsePip(pips[i])
-            end
-            pipAlpha[i] = targetAlpha
         end
     end
 

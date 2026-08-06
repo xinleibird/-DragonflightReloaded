@@ -23,26 +23,27 @@ do
         local combo = _G["ComboFrame"]
         if not combo then return end
         local db = DFRL and DFRL.tempDB and DFRL.tempDB.ComboPoints
-        if db then ApplyComboFrameState(combo, db.enabled) end
+        if db then ApplyComboFrameState(combo, db.display) end
     end)
 end
 
 DFRL:NewDefaults("ComboPoints", {
-    enabled  = {true, "checkbox", nil, nil, "General", 1,
+    enabled  = {true},
+    display  = {true, "checkbox", nil, nil, "General", 1,
                 "Display combo points for rogue / druid cat form", nil, nil},
-    size     = {20, "slider", {20, 32}, "enabled", "Layout", 2,
+    size     = {20, "slider", {20, 32}, "display", "Layout", 2,
                 "Width and height of each combo point pip", nil, nil},
-    spacing  = {2,  "slider", {0, 8}, "enabled", "Layout", 3,
+    spacing  = {2,  "slider", {0, 8}, "display", "Layout", 3,
                 "Pixel gap between pips", nil, nil},
-    offsetX  = {0,  "slider", {-200, 200}, "enabled", "Layout", 4,
+    offsetX  = {0,  "slider", {-200, 200}, "display", "Layout", 4,
                 "X offset from TargetFrame top center", nil, nil},
-    offsetY  = {6,  "slider", {-200, 200}, "enabled", "Layout", 5,
+    offsetY  = {6,  "slider", {-200, 200}, "display", "Layout", 5,
                 "Y offset from TargetFrame top edge (positive = above)", nil, nil},
-    lowColor = {{1, 0.3, 0.3}, "colour", nil, "enabled", "Colors", 6,
+    lowColor = {{1, 0.3, 0.3}, "colour", nil, "display", "Colors", 6,
                 "Pip color for 1-2 combo points", nil, nil},
-    midColor = {{1, 1,   0.3}, "colour", nil, "enabled", "Colors", 7,
+    midColor = {{1, 1,   0.3}, "colour", nil, "display", "Colors", 7,
                 "Pip color for 3 combo points", nil, nil},
-    highColor= {{0.3, 1, 0.3}, "colour", nil, "enabled", "Colors", 8,
+    highColor= {{0.3, 1, 0.3}, "colour", nil, "display", "Colors", 8,
                 "Pip color for 4-5 combo points", nil, nil},
 })
 
@@ -170,7 +171,7 @@ DFRL:NewMod("ComboPoints", 1, function()
     end
 
     local function Update()
-        if not DFRL:GetTempDB("ComboPoints", "enabled") or not InComboForm() then
+        if not DFRL:GetTempDB("ComboPoints", "display") or not InComboForm() then
             HideCombo()
             return
         end
@@ -212,7 +213,7 @@ DFRL:NewMod("ComboPoints", 1, function()
     Relayout()
 
     DFRL:NewCallbacks("ComboPoints", {
-        enabled   = function(value)
+        display   = function(value)
             local combo = _G["ComboFrame"]
             if combo then ApplyComboFrameState(combo, value) end
             Update()

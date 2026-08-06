@@ -62,15 +62,31 @@ DFRL:NewMod("ComboPoints", 1, function()
     local pipActive = {}
     local pipOffsetX = {}
 
+    local actionTexPath = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\actionbars\\"
+
     for i = 1, MAX_COMBO_POINTS do
-        -- Each pip is a mini StatusBar matching the unit-frame style:
-        -- semi-transparent black bg + opaque colored fill texture.
-        local pip = CreateStatusBar(container, 20, 20)
-        pip.fill:ClearAllPoints()
-        pip.fill:SetPoint("TOPLEFT", pip, "TOPLEFT", 0, 0)
-        pip.fill:SetPoint("BOTTOMRIGHT", pip, "BOTTOMRIGHT", 0, 0)
-        pip.fill:SetTexture("Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\healthDF2.tga")
-        pip.fill:Hide()
+        -- Each pip mirrors the action-bar button look: dark button base
+        -- (HDActionBarBtn) wrapped in the gold DF border (border.blp),
+        -- with a solid color fill inside showing the combo-point state.
+        local pip = CreateFrame("Frame", nil, container)
+        pip:SetWidth(20)
+        pip:SetHeight(20)
+
+        local bg = pip:CreateTexture(nil, "BORDER")
+        bg:SetTexture(actionTexPath .. "HDActionBarBtn.tga")
+        bg:SetAllPoints(pip)
+
+        local border = pip:CreateTexture(nil, "OVERLAY")
+        border:SetTexture(actionTexPath .. "border.blp")
+        border:SetAllPoints(pip)
+
+        local fill = pip:CreateTexture(nil, "ARTWORK")
+        fill:SetTexture("Interface\\Buttons\\WHITE8X8")
+        fill:SetPoint("TOPLEFT", pip, "TOPLEFT", 2, -2)
+        fill:SetPoint("BOTTOMRIGHT", pip, "BOTTOMRIGHT", -2, 2)
+        fill:Hide()
+
+        pip.fill = fill
         pips[i] = pip
         pipActive[i] = false
         pipOffsetX[i] = 0
@@ -171,7 +187,7 @@ DFRL:NewMod("ComboPoints", 1, function()
         for i = 1, MAX_COMBO_POINTS do
             if i <= n then
                 local r, g, b = PipColor(i)
-                pips[i]:SetFillColor(r, g, b, 1)
+                pips[i].fill:SetVertexColor(r, g, b, 1)
                 pips[i].fill:Show()
                 if not pipActive[i] then
                     PulsePip(pips[i], pipOffsetX[i])

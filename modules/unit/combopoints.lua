@@ -1,5 +1,32 @@
 setfenv(1, DFRL:GetEnv())
 
+-- Master switch: when ComboPoints.enabled is true, disable Blizzard's
+-- built-in ComboFrame so only this addon's pips show. When false,
+-- restore ComboFrame to its default behavior.
+local function ApplyComboFrameState(combo, enabled)
+    if enabled then
+        combo:UnregisterAllEvents()
+        combo:Hide()
+    else
+        combo:RegisterEvent("UNIT_COMBO_POINTS")
+        combo:RegisterEvent("PLAYER_COMBO_POINTS")
+        combo:RegisterEvent("PLAYER_TARGET_CHANGED")
+        combo:RegisterEvent("PLAYER_ENTERING_WORLD")
+        combo:Show()
+    end
+end
+
+do
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("PLAYER_ENTERING_WORLD")
+    f:SetScript("OnEvent", function()
+        local combo = _G["ComboFrame"]
+        if not combo then return end
+        local db = DFRL and DFRL.tempDB and DFRL.tempDB.ComboPoints
+        if db then ApplyComboFrameState(combo, db.enabled) end
+    end)
+end
+
 DFRL:NewDefaults("ComboPoints", {
     enabled  = {true, "checkbox", nil, nil, "General", 1,
                 "Display combo points for rogue / druid cat form", nil, nil},
@@ -188,7 +215,11 @@ DFRL:NewMod("ComboPoints", 1, function()
     Relayout()
 
     DFRL:NewCallbacks("ComboPoints", {
-        enabled   = Update,
+        enabled   = function(value)
+            local combo = _G["ComboFrame"]
+            if combo then ApplyComboFrameState(combo, value) end
+            Update()
+        end,
         size      = function() Relayout(); Update() end,
         spacing   = function() Relayout(); Update() end,
         offsetX   = AnchorToTarget,

@@ -69,6 +69,7 @@ DFRL:NewMod("ComboPoints", 1, function()
         pip.fill:ClearAllPoints()
         pip.fill:SetPoint("TOPLEFT", pip, "TOPLEFT", 0, 0)
         pip.fill:SetPoint("BOTTOMRIGHT", pip, "BOTTOMRIGHT", 0, 0)
+        pip.fill:SetTexture("Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\healthDF2.tga")
         pip.fill:Hide()
         pips[i] = pip
         pipActive[i] = false

@@ -3,15 +3,19 @@ setfenv(1, DFRL:GetEnv())
 DFRL:NewDefaults("ComboPoints", {
     enabled  = {true, "checkbox", nil, nil, "General", 1,
                 "Display combo points for rogue / druid cat form", nil, nil},
-    size     = {14, "slider", {8, 24}, "enabled", "Layout", 2,
+    size     = {20, "slider", {20, 32}, "enabled", "Layout", 2,
                 "Width and height of each combo point pip", nil, nil},
-    spacing  = {2,  "slider", {0, 8},  "enabled", "Layout", 3,
+    spacing  = {2,  "slider", {0, 8}, "enabled", "Layout", 3,
                 "Pixel gap between pips", nil, nil},
-    lowColor = {{1, 0.3, 0.3}, "colour", nil, "enabled", "Colors", 4,
+    offsetX  = {0,  "slider", {-200, 200}, "enabled", "Layout", 4,
+                "X offset from TargetFrame top center", nil, nil},
+    offsetY  = {6,  "slider", {-200, 200}, "enabled", "Layout", 5,
+                "Y offset from TargetFrame top edge (positive = above)", nil, nil},
+    lowColor = {{1, 0.3, 0.3}, "colour", nil, "enabled", "Colors", 6,
                 "Pip color for 1-2 combo points", nil, nil},
-    midColor = {{1, 1,   0.3}, "colour", nil, "enabled", "Colors", 5,
+    midColor = {{1, 1,   0.3}, "colour", nil, "enabled", "Colors", 7,
                 "Pip color for 3 combo points", nil, nil},
-    highColor= {{0.3, 1, 0.3}, "colour", nil, "enabled", "Colors", 6,
+    highColor= {{0.3, 1, 0.3}, "colour", nil, "enabled", "Colors", 8,
                 "Pip color for 4-5 combo points", nil, nil},
 })
 
@@ -22,13 +26,13 @@ DFRL:NewMod("ComboPoints", 1, function()
     if class ~= "ROGUE" and class ~= "DRUID" then return end
 
     local container = CreateFrame("Frame", "DFRL_ComboPoints", UIParent)
-    container:SetMovable(true)
-    container:EnableMouse(false)
     container:SetFrameStrata("MEDIUM")
+    container:EnableMouse(false)
+    container:SetAlpha(0)
     container:Hide()
-    DFRL.comboPointsContainer = container
 
     local pips = {}
+    local pipAlpha = {}
     for i = 1, MAX_COMBO_POINTS do
         local pip = CreateFrame("Frame", "DFRL_ComboPoints_Pip" .. i, container)
         pip:SetBackdrop({
@@ -39,20 +43,19 @@ DFRL:NewMod("ComboPoints", 1, function()
         })
         pip:SetBackdropColor(0.2, 0.2, 0.2, 0.4)
         pip:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
+        pip:SetAlpha(0.4)
         pips[i] = pip
+        pipAlpha[i] = 0.4
     end
 
-    local anchored = false
+    local visible = false
+
     local function AnchorToTarget()
-        if anchored then return end
         if not TargetFrame then return end
-        if DFRL_FRAMEPOS and DFRL_FRAMEPOS["DFRL_ComboPoints"] then
-            anchored = true
-            return
-        end
+        local ox = DFRL:GetTempDB("ComboPoints", "offsetX")
+        local oy = DFRL:GetTempDB("ComboPoints", "offsetY")
         container:ClearAllPoints()
-        container:SetPoint("BOTTOM", TargetFrame, "TOP", 0, 6)
-        anchored = true
+        container:SetPoint("BOTTOM", TargetFrame, "TOP", ox, oy)
     end
 
     local function PipColor(n)
@@ -82,23 +85,73 @@ DFRL:NewMod("ComboPoints", 1, function()
         return form == 1 or form == 2 or form == 3
     end
 
+    local function PulsePip(pip)
+        pip.pulseTime = 0
+        pip:SetScale(0.5)
+        pip:SetScript("OnUpdate", function()
+            this.pulseTime = (this.pulseTime or 0) + arg1
+            local t = this.pulseTime / 0.25
+            if t >= 1 then
+                this:SetScale(1)
+                this:SetScript("OnUpdate", nil)
+                return
+            end
+            local s
+            if t < 0.4 then
+                s = 0.5 + (1.15 - 0.5) * (t / 0.4)
+            elseif t < 0.7 then
+                s = 1.15 - (1.15 - 0.9) * ((t - 0.4) / 0.3)
+            else
+                s = 0.9 + (1.0 - 0.9) * ((t - 0.7) / 0.3)
+            end
+            this:SetScale(s)
+        end)
+    end
+
+    local function ShowCombo()
+        if visible then return end
+        visible = true
+        container:SetAlpha(0)
+        container:Show()
+        UIFrameFadeIn(container, 0.2, 0, 1)
+    end
+
+    local function HideCombo()
+        if not visible then return end
+        visible = false
+        UIFrameFadeOut(container, 0.3, container:GetAlpha(), 0)
+    end
+
     local function Update()
         if not DFRL:GetTempDB("ComboPoints", "enabled") or not InComboForm() then
-            container:Hide()
+            HideCombo()
             return
         end
         AnchorToTarget()
         local n = GetComboPoints() or 0
         if n > MAX_COMBO_POINTS then n = MAX_COMBO_POINTS end
 
-        container:Show()
+        if n < 1 then
+            HideCombo()
+            return
+        end
+
+        ShowCombo()
         for i = 1, MAX_COMBO_POINTS do
-            if i <= n and n > 0 then
-                local r, g, b = PipColor(i)
-                pips[i]:SetBackdropColor(r, g, b, 0.85)
+            local r, g, b, targetAlpha
+            if i <= n then
+                r, g, b = PipColor(i)
+                targetAlpha = 1
             else
-                pips[i]:SetBackdropColor(0.2, 0.2, 0.2, 0.4)
+                r, g, b = 0.2, 0.2, 0.2
+                targetAlpha = 0.4
             end
+            pips[i]:SetBackdropColor(r, g, b, targetAlpha)
+            pips[i]:SetAlpha(targetAlpha)
+            if targetAlpha > 0.5 and pipAlpha[i] <= 0.5 then
+                PulsePip(pips[i])
+            end
+            pipAlpha[i] = targetAlpha
         end
     end
 
@@ -117,6 +170,8 @@ DFRL:NewMod("ComboPoints", 1, function()
         enabled   = Update,
         size      = function() Relayout(); Update() end,
         spacing   = function() Relayout(); Update() end,
+        offsetX   = AnchorToTarget,
+        offsetY   = AnchorToTarget,
         lowColor  = Update,
         midColor  = Update,
         highColor = Update,

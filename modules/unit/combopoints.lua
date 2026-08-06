@@ -90,11 +90,11 @@ DFRL:NewMod("ComboPoints", 1, function()
 
     local function PulsePip(pip, baseX)
         pip.pulseTime = 0
-        local w = pip:GetWidth()
-        local h = pip:GetHeight()
+        local baseW = pip:GetWidth()
+        local baseH = pip:GetHeight()
         pip:SetScript("OnUpdate", function()
             this.pulseTime = (this.pulseTime or 0) + arg1
-            local t = this.pulseTime / 0.4
+            local t = this.pulseTime / 0.5
             local scale
             if t >= 1 then
                 scale = 1
@@ -105,16 +105,13 @@ DFRL:NewMod("ComboPoints", 1, function()
                 local nt = (t - 0.5) * 2
                 scale = 1.6 - 0.6 * (nt * nt)
             end
-            -- WoW SetScale scales around the TOPLEFT corner; compensate the
-            -- anchor so the visual center stays fixed at baseX.
-            local dx = (scale - 1) * w / 2
-            local dy = (1 - scale) * h / 2
+            -- Resize the frame in place; anchor stays at CENTER + baseX so
+            -- the visual center is pinned to its original position.
             this:ClearAllPoints()
-            this:SetPoint("CENTER", container, "CENTER", baseX + dx, 0 + dy)
-            this:SetScale(scale)
+            this:SetWidth(baseW * scale)
+            this:SetHeight(baseH * scale)
+            this:SetPoint("CENTER", container, "CENTER", baseX, 0)
             if t >= 1 then
-                this:ClearAllPoints()
-                this:SetPoint("CENTER", container, "CENTER", baseX, 0)
                 this:SetScript("OnUpdate", nil)
             end
         end)

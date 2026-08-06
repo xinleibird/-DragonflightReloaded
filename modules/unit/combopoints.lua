@@ -41,16 +41,16 @@ DFRL:NewMod("ComboPoints", 1, function()
         local rounded = DFRL:GetTempDB("ComboPoints", "rounded")
         if rounded < 1 then
             pip:SetBackdrop({
-                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                bgFile   = "Interface\\Buttons\\WHITE8X8",
                 edgeFile = nil,
                 tile = false, tileSize = 0, edgeSize = 0,
                 insets = { left = 0, right = 0, top = 0, bottom = 0 }
             })
         else
             pip:SetBackdrop({
-                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                bgFile   = "Interface\\Buttons\\WHITE8X8",
                 edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-                tile = true, tileSize = rounded, edgeSize = rounded,
+                tile = true, tileSize = 16, edgeSize = rounded,
                 insets = { left = 2, right = 2, top = 2, bottom = 2 }
             })
         end

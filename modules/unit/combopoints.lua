@@ -31,8 +31,14 @@ DFRL:NewMod("ComboPoints", 1, function()
     local pips = {}
     for i = 1, MAX_COMBO_POINTS do
         local pip = CreateFrame("Frame", "DFRL_ComboPoints_Pip" .. i, container)
-        pip.tex = pip:CreateTexture(nil, "BACKGROUND")
-        pip.tex:SetAllPoints(pip)
+        pip:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile = true, tileSize = 16, edgeSize = 16,
+            insets = { left = 3, right = 3, top = 3, bottom = 3 }
+        })
+        pip:SetBackdropColor(0.2, 0.2, 0.2, 0.4)
+        pip:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
         pips[i] = pip
     end
 
@@ -89,9 +95,9 @@ DFRL:NewMod("ComboPoints", 1, function()
         for i = 1, MAX_COMBO_POINTS do
             if i <= n and n > 0 then
                 local r, g, b = PipColor(i)
-                pips[i].tex:SetTexture(r, g, b, 0.85)
+                pips[i]:SetBackdropColor(r, g, b, 0.85)
             else
-                pips[i].tex:SetTexture(0.2, 0.2, 0.2, 0.4)
+                pips[i]:SetBackdropColor(0.2, 0.2, 0.2, 0.4)
             end
         end
     end

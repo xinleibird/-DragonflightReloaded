@@ -38,13 +38,11 @@ DFRL:NewDefaults("ComboPoints", {
                 "X offset from TargetFrame top center", nil, nil},
     offsetY  = {6,  "slider", {-200, 200}, "enabled", "Layout", 5,
                 "Y offset from TargetFrame top edge (positive = above)", nil, nil},
-    rounded  = {14, "slider", {0, 14}, "enabled", "Layout", 6,
-                "Corner roundness (0 = square, 14 = most rounded)", nil, nil},
-    lowColor = {{1, 0.3, 0.3}, "colour", nil, "enabled", "Colors", 7,
+    lowColor = {{1, 0.3, 0.3}, "colour", nil, "enabled", "Colors", 6,
                 "Pip color for 1-2 combo points", nil, nil},
-    midColor = {{1, 1,   0.3}, "colour", nil, "enabled", "Colors", 8,
+    midColor = {{1, 1,   0.3}, "colour", nil, "enabled", "Colors", 7,
                 "Pip color for 3 combo points", nil, nil},
-    highColor= {{0.3, 1, 0.3}, "colour", nil, "enabled", "Colors", 9,
+    highColor= {{0.3, 1, 0.3}, "colour", nil, "enabled", "Colors", 8,
                 "Pip color for 4-5 combo points", nil, nil},
 })
 
@@ -64,31 +62,11 @@ DFRL:NewMod("ComboPoints", 1, function()
     local pipActive = {}
     local pipOffsetX = {}
 
-    local function ApplyBackdrop(pip)
-        local rounded = DFRL:GetTempDB("ComboPoints", "rounded")
-        if rounded < 1 then
-            pip:SetBackdrop({
-                bgFile   = "Interface\\Buttons\\WHITE8X8",
-                edgeFile = nil,
-                tile = false, tileSize = 0, edgeSize = 0,
-                insets = { left = 0, right = 0, top = 0, bottom = 0 }
-            })
-        else
-            pip:SetBackdrop({
-                bgFile   = "Interface\\Buttons\\WHITE8X8",
-                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-                tile = true, tileSize = 16, edgeSize = rounded,
-                insets = { left = 2, right = 2, top = 2, bottom = 2 }
-            })
-        end
-    end
-
     for i = 1, MAX_COMBO_POINTS do
-        local pip = CreateFrame("Frame", "DFRL_ComboPoints_Pip" .. i, container)
-        ApplyBackdrop(pip)
-        pip:SetBackdropColor(0.15, 0.15, 0.15, 1)
-        pip:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
-        pip:SetAlpha(1)
+        -- Each pip is a mini StatusBar matching the unit-frame style:
+        -- semi-transparent black bg + opaque colored fill texture.
+        local pip = CreateStatusBar(container, 20, 20)
+        pip.fill:Hide()
         pips[i] = pip
         pipActive[i] = false
         pipOffsetX[i] = 0
@@ -149,8 +127,6 @@ DFRL:NewMod("ComboPoints", 1, function()
                 local nt = (t - 0.5) * 2
                 scale = 1.6 - 0.6 * (nt * nt)
             end
-            -- Resize the frame in place; anchor stays at CENTER + baseX so
-            -- the visual center is pinned to its original position.
             this:ClearAllPoints()
             this:SetWidth(baseW * scale)
             this:SetHeight(baseH * scale)
@@ -191,13 +167,14 @@ DFRL:NewMod("ComboPoints", 1, function()
         for i = 1, MAX_COMBO_POINTS do
             if i <= n then
                 local r, g, b = PipColor(i)
-                pips[i]:SetBackdropColor(r, g, b, 1)
+                pips[i]:SetFillColor(r, g, b, 1)
+                pips[i].fill:Show()
                 if not pipActive[i] then
                     PulsePip(pips[i], pipOffsetX[i])
                     pipActive[i] = true
                 end
             else
-                pips[i]:SetBackdropColor(0.15, 0.15, 0.15, 1)
+                pips[i].fill:Hide()
                 pipActive[i] = false
             end
         end
@@ -224,17 +201,6 @@ DFRL:NewMod("ComboPoints", 1, function()
         spacing   = function() Relayout(); Update() end,
         offsetX   = AnchorToTarget,
         offsetY   = AnchorToTarget,
-        rounded   = function()
-            for i = 1, MAX_COMBO_POINTS do
-                ApplyBackdrop(pips[i])
-                if pipActive[i] then
-                    local r, g, b = PipColor(i)
-                    pips[i]:SetBackdropColor(r, g, b, 1)
-                else
-                    pips[i]:SetBackdropColor(0.15, 0.15, 0.15, 1)
-                end
-            end
-        end,
         lowColor  = Update,
         midColor  = Update,
         highColor = Update,

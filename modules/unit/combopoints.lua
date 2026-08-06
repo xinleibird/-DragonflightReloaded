@@ -33,6 +33,7 @@ DFRL:NewMod("ComboPoints", 1, function()
 
     local pips = {}
     local pipActive = {}
+    local pipOffsetX = {}
     for i = 1, MAX_COMBO_POINTS do
         local pip = CreateFrame("Frame", "DFRL_ComboPoints_Pip" .. i, container)
         pip:SetBackdrop({
@@ -46,6 +47,7 @@ DFRL:NewMod("ComboPoints", 1, function()
         pip:SetAlpha(1)
         pips[i] = pip
         pipActive[i] = false
+        pipOffsetX[i] = 0
     end
 
     local visible = false
@@ -73,8 +75,8 @@ DFRL:NewMod("ComboPoints", 1, function()
             pips[i]:SetWidth(size)
             pips[i]:SetHeight(size)
             pips[i]:ClearAllPoints()
-            local offsetX = -total / 2 + size / 2 + (i - 1) * (size + spacing)
-            pips[i]:SetPoint("CENTER", container, "CENTER", offsetX, 0)
+            pipOffsetX[i] = -total / 2 + size / 2 + (i - 1) * (size + spacing)
+            pips[i]:SetPoint("CENTER", container, "CENTER", pipOffsetX[i], 0)
         end
         container:SetWidth(total)
         container:SetHeight(size)
@@ -86,8 +88,10 @@ DFRL:NewMod("ComboPoints", 1, function()
         return form == 1 or form == 2 or form == 3
     end
 
-    local function PulsePip(pip)
+    local function PulsePip(pip, offsetX)
         pip.pulseTime = 0
+        pip:ClearAllPoints()
+        pip:SetPoint("CENTER", container, "CENTER", offsetX, 0)
         pip:SetScale(1)
         pip:SetScript("OnUpdate", function()
             this.pulseTime = (this.pulseTime or 0) + arg1
@@ -100,10 +104,10 @@ DFRL:NewMod("ComboPoints", 1, function()
             local scale
             if t < 0.5 then
                 local nt = t * 2
-                scale = 1.0 + 0.3 * (1 - (1 - nt) * (1 - nt))
+                scale = 1.0 + 0.6 * (1 - (1 - nt) * (1 - nt))
             else
                 local nt = (t - 0.5) * 2
-                scale = 1.3 - 0.3 * (nt * nt)
+                scale = 1.6 - 0.6 * (nt * nt)
             end
             this:SetScale(scale)
         end)
@@ -141,7 +145,7 @@ DFRL:NewMod("ComboPoints", 1, function()
                 local r, g, b = PipColor(i)
                 pips[i]:SetBackdropColor(r, g, b, 1)
                 if not pipActive[i] then
-                    PulsePip(pips[i])
+                    PulsePip(pips[i], pipOffsetX[i])
                     pipActive[i] = true
                 end
             else

@@ -41,6 +41,7 @@ DFRL:NewMod("Frames", 2, function()
 
             -- 3rd party
             DFRL.PWB_Panel,
+            DFRL.comboPointsContainer,
         }
 
         local function SaveFramePosition(frame)

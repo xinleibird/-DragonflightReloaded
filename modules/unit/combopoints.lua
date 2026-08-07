@@ -39,11 +39,11 @@ DFRL:NewDefaults("ComboPoints", {
                 "X offset from TargetFrame top center", nil, nil},
     offsetY  = {6,  "slider", {-200, 200}, "display", "Layout", 5,
                 "Y offset from TargetFrame top edge (positive = above)", nil, nil},
-    lowColor = {{1, 0.3, 0.3}, "colour", nil, "display", "Colors", 6,
+    lowColor = {{1, 0.5, 0}, "colour", nil, "display", "Colors", 6,
                 "Pip color for 1-2 combo points", nil, nil},
-    midColor = {{1, 1,   0.3}, "colour", nil, "display", "Colors", 7,
+    midColor = {{1, 1,   0}, "colour", nil, "display", "Colors", 7,
                 "Pip color for 3 combo points", nil, nil},
-    highColor= {{0.3, 1, 0.3}, "colour", nil, "display", "Colors", 8,
+    highColor= {{1, 0,   0}, "colour", nil, "display", "Colors", 8,
                 "Pip color for 4-5 combo points", nil, nil},
 })
 

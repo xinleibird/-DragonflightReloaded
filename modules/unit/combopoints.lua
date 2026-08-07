@@ -31,7 +31,7 @@ DFRL:NewDefaults("ComboPoints", {
     enabled  = {true},
     display  = {true, "checkbox", nil, nil, "General", 1,
                 "Display combo points for rogue / druid cat form", nil, nil},
-    size     = {20, "slider", {16, 32}, "display", "Layout", 2,
+    size     = {20, "slider", {12, 32}, "display", "Layout", 2,
                 "Width and height of each combo point pip", nil, nil},
     spacing  = {2,  "slider", {0, 12}, "display", "Layout", 3,
                 "Pixel gap between pips", nil, nil},

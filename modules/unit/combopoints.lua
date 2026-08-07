@@ -81,6 +81,12 @@ DFRL:NewMod("ComboPoints", 1, function()
         border:SetTexture(actionTexPath .. "border.blp")
         border:SetAllPoints(pip)
 
+        local glow = pip:CreateTexture(nil, "OVERLAY")
+        glow:SetTexture(actionTexPath .. "uiactionbariconframehighlight.tga")
+        glow:SetAllPoints(pip)
+        glow:SetBlendMode("ADD")
+        glow:SetAlpha(0)
+
         local fill = pip:CreateTexture(nil, "ARTWORK")
         fill:SetTexture("Interface\\Buttons\\WHITE8X8")
         fill:SetPoint("TOPLEFT", pip, "TOPLEFT", 2, -2)
@@ -88,6 +94,7 @@ DFRL:NewMod("ComboPoints", 1, function()
         fill:Hide()
 
         pip.fill = fill
+        pip.glow = glow
         pips[i] = pip
         pipActive[i] = false
         pipOffsetX[i] = 0
@@ -153,7 +160,10 @@ DFRL:NewMod("ComboPoints", 1, function()
             this:SetHeight(baseH * scale)
             this:SetPoint("CENTER", container, "CENTER", baseX, 0)
             if t >= 1 then
+                this.glow:SetAlpha(0)
                 this:SetScript("OnUpdate", nil)
+            else
+                this.glow:SetAlpha((scale - 1) / 0.6)
             end
         end)
     end

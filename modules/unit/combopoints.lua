@@ -178,10 +178,17 @@ DFRL:NewMod("ComboPoints", 1, function()
         if not visible then return end
         visible = false
         UIFrameFadeOut(container, 0.35, container:GetAlpha(), 0)
+        if container:GetAlpha() <= 0 then
+            container:Hide()
+        end
     end
 
     local function Update()
         if not DFRL:GetTempDB("ComboPoints", "display") or not InComboForm() then
+            HideCombo()
+            return
+        end
+        if (not UnitExists("target")) or UnitIsDead("target") then
             HideCombo()
             return
         end

@@ -1,37 +1,51 @@
 DFRL:NewDefaults("Target", {
-    enabled = {true},
-    targetDarkMode = {0, "slider", {0, 1}, nil, "Appearance", 1, "Adjust dark mode intensity", nil, nil},
-    targetColor = {{1, 1, 1}, "colour", nil, nil, "Appearance", 2, "Change target color", nil, nil},
-    frameScale = {1, "slider", {0.7, 1.3}, nil, "Appearance", 3, "Adjust frame size", nil, nil},
-    textShow = {true, "checkbox", nil, nil, "Text", 4, "Show health and mana text", nil, nil},
-    textMaxShow = {true, "checkbox", nil, "textShow", "Text", 5, "Show max health and mana text", nil, nil},
-    noPercent = {true, "checkbox", nil, "textShow", "Text", 6, "Show only current values without percentages", nil, nil},
-    textColoringHealth = {false, "checkbox", nil, "textShow", "Text", 7, "Color text based on health percentage", nil, nil},
-    textColoringResource = {false, "checkbox", nil, "textShow", "Text", 8, "Color text based on resource (mana/rage/energy) percentage", nil, nil},
-    frameFont = {"Prototype", "dropdown", {
-        "FRIZQT__.TTF",
-        "Expressway",
-        "Homespun",
-        "Hooge",
-        "Myriad-Pro",
+    enabled = { true },
+    targetDarkMode = { 0, "slider", { 0, 1 }, nil, "Appearance", 1, "Adjust dark mode intensity", nil, nil },
+    targetColor = { { 1, 1, 1 }, "colour", nil, nil, "Appearance", 2, "Change target color", nil, nil },
+    frameScale = { 1, "slider", { 0.7, 1.3 }, nil, "Appearance", 3, "Adjust frame size", nil, nil },
+    textShow = { true, "checkbox", nil, nil, "Text", 4, "Show health and mana text", nil, nil },
+    textMaxShow = { true, "checkbox", nil, "textShow", "Text", 5, "Show max health and mana text", nil, nil },
+    noPercent = { true, "checkbox", nil, "textShow", "Text", 6, "Show only current values without percentages", nil, nil },
+    textColoringHealth = { false, "checkbox", nil, "textShow", "Text", 7, "Color text based on health percentage", nil, nil },
+    textColoringResource = { false, "checkbox", nil, "textShow", "Text", 8, "Color text based on resource (mana/rage/energy) percentage", nil, nil },
+    frameFont = {
         "Prototype",
-        "PT-Sans-Narrow-Bold",
-        "PT-Sans-Narrow-Regular",
-        "RobotoMono",
-        "BigNoodleTitling",
-        "Continuum",
-        "DieDieDie"
-    }, nil, "Text", 9, "Change the font used for the targetframe", nil, nil},
-    healthSize = {15, "slider", {8, 20}, "textShow", "Text", 10, "Health text font size", nil, nil},
-    manaSize = {9, "slider", {8, 20}, "textShow", "Text", 11, "Mana text font size", nil, nil},
-    nameSize = {9, "slider", {6, 16}, nil, "Text", 12, "Target name text font size", nil, nil},
-    levelSize = {9, "slider", {6, 16}, nil, "Text", 13, "Target level text font size", nil, nil},
-    colorReaction = {true, "checkbox", nil, nil, "Health Bar", 14, "Color health bar based on target reaction", nil, nil},
-    colorClass = {false, "checkbox", nil, nil, "Health Bar", 15, "Color health bar based on target class", nil, nil},
-    enablePulse = {true, "checkbox", nil, nil, "Health Bar", 16, "Enable pulse animation on bars", nil, nil},
-    pulseColor = {{1, 1, 1}, "colour", nil, "enablePulse", "Health Bar", 17, "Color for pulse animation", nil, nil},
-    enableCutout = {true, "checkbox", nil, nil, "Health Bar", 18, "Enable cutout animation on bars", nil, nil},
-    cutoutColor = {{1, 0, 0}, "colour", nil, "enableCutout", "Health Bar", 19, "Color for damage cutout effect", nil, nil},
+        "dropdown",
+        {
+            "FRIZQT__.TTF",
+            "Expressway",
+            "Homespun",
+            "Hooge",
+            "Myriad-Pro",
+            "Prototype",
+            "PT-Sans-Narrow-Bold",
+            "PT-Sans-Narrow-Regular",
+            "RobotoMono",
+            "BigNoodleTitling",
+            "Continuum",
+            "DieDieDie",
+        },
+        nil,
+        "Text",
+        9,
+        "Change the font used for the targetframe",
+        nil,
+        nil,
+    },
+    healthSize = { 15, "slider", { 8, 20 }, "textShow", "Text", 10, "Health text font size", nil, nil },
+    manaSize = { 9, "slider", { 8, 20 }, "textShow", "Text", 11, "Mana text font size", nil, nil },
+    nameSize = { 9, "slider", { 6, 16 }, nil, "Text", 12, "Target name text font size", nil, nil },
+    levelSize = { 9, "slider", { 6, 16 }, nil, "Text", 13, "Target level text font size", nil, nil },
+    colorReaction = { true, "checkbox", nil, nil, "Health Bar", 14, "Color health bar based on target reaction", nil, nil },
+    colorClass = { false, "checkbox", nil, nil, "Health Bar", 15, "Color health bar based on target class", nil, nil },
+    enablePulse = { true, "checkbox", nil, nil, "Health Bar", 16, "Enable pulse animation on bars", nil, nil },
+    pulseColor = { { 1, 1, 1 }, "colour", nil, "enablePulse", "Health Bar", 17, "Color for pulse animation", nil, nil },
+    enableCutout = { true, "checkbox", nil, nil, "Health Bar", 18, "Enable cutout animation on bars", nil, nil },
+    cutoutColor = { { 1, 0, 0 }, "colour", nil, "enableCutout", "Health Bar", 19, "Color for damage cutout effect", nil, nil },
+    showCreatureType = { true, "checkbox", nil, nil, "Appearance", 20, "Show target creature type icon", nil, nil },
+    creatureTypeSize = { 14, "slider", { 8, 32 }, nil, "Appearance", 21, "Creature type icon size", nil, nil },
+    creatureTypeX = { -85, "slider", { -128, 128 }, nil, "Appearance", 22, "Creature type icon X offset", nil, nil },
+    creatureTypeY = { 25, "slider", { -64, 64 }, nil, "Appearance", 23, "Creature type icon Y offset", nil, nil },
 })
 
 DFRL:NewMod("Target", 1, function()
@@ -40,7 +54,7 @@ DFRL:NewMod("Target", 1, function()
         textMaxShow = nil,
         textColoringHealth = nil,
         textColoringResource = nil,
-        lastUpdate = 0
+        lastUpdate = 0,
     }
 
     local Setup = {
@@ -50,6 +64,7 @@ DFRL:NewMod("Target", 1, function()
 
         hideFrame = nil,
         healthPercentText = nil,
+        creatureTypeIcon = nil,
 
         combatOverlay = nil,
         combatOverlayTex = nil,
@@ -68,17 +83,17 @@ DFRL:NewMod("Target", 1, function()
                 nameFontSize = 9,
                 levelFontSize = 9,
                 outline = "OUTLINE",
-                nameColor = {1, .82, 0},
-                levelColor = {1, .82, 0},
-                healthColor = {1, 1, 1},
-                manaColor = {1, 1, 1},
-            }
+                nameColor = { 1, 0.82, 0 },
+                levelColor = { 1, 0.82, 0 },
+                healthColor = { 1, 1, 1 },
+                manaColor = { 1, 1, 1 },
+            },
         },
 
         barColorState = {
             colorReaction = false,
             colorClass = false,
-        }
+        },
     }
 
     function Setup:KillBlizz()
@@ -90,15 +105,15 @@ DFRL:NewMod("Target", 1, function()
     function Setup:HealthBar()
         TargetFrameHealthBar:Hide()
         self.healthBar = CreateStatusBar(TargetFrame, 129, 30)
-        self.healthBar:SetPoint('TOPRIGHT', TargetFrame, 'TOPRIGHT', -100, -29)
+        self.healthBar:SetPoint("TOPRIGHT", TargetFrame, "TOPRIGHT", -100, -29)
         self.healthBar:SetFrameLevel(TargetFrame:GetFrameLevel())
-        self.healthBar:SetTextures(self.texpath .. 'healthDF2.tga')
-        if UnitExists('target') then
-            self.healthBar.max = UnitHealthMax('target')
-            self.healthBar:SetValue(UnitHealth('target'))
+        self.healthBar:SetTextures(self.texpath .. "healthDF2.tga")
+        if UnitExists("target") then
+            self.healthBar.max = UnitHealthMax("target")
+            self.healthBar:SetValue(UnitHealth("target"))
         end
-        local cutoutColor = DFRL:GetTempDB('Target', 'cutoutColor')
-        local pulseColor = DFRL:GetTempDB('Target', 'pulseColor')
+        local cutoutColor = DFRL:GetTempDB("Target", "cutoutColor")
+        local pulseColor = DFRL:GetTempDB("Target", "pulseColor")
         self.healthBar:SetCutoutColor(cutoutColor[1], cutoutColor[2], cutoutColor[3], 1)
         self.healthBar:SetPulseColor(pulseColor[1], pulseColor[2], pulseColor[3], 1)
     end
@@ -113,11 +128,11 @@ DFRL:NewMod("Target", 1, function()
 
         self.texts.healthPercent = self.texts.healthTextFrame:CreateFontString(nil)
         self.texts.healthPercent:SetFont(cfg.font, cfg.healthFontSize, cfg.outline)
-        self.texts.healthPercent:SetPoint('LEFT', self.healthBar, 'LEFT', 5, 0)
+        self.texts.healthPercent:SetPoint("LEFT", self.healthBar, "LEFT", 5, 0)
 
         self.texts.healthValue = self.texts.healthTextFrame:CreateFontString(nil)
         self.texts.healthValue:SetFont(cfg.font, cfg.healthFontSize, cfg.outline)
-        self.texts.healthValue:SetPoint('RIGHT', self.healthBar, 'RIGHT', -5, 0)
+        self.texts.healthValue:SetPoint("RIGHT", self.healthBar, "RIGHT", -5, 0)
 
         if GetCVar("statusBarText") == "1" then
             if TargetHPText then
@@ -132,17 +147,17 @@ DFRL:NewMod("Target", 1, function()
     function Setup:ManaBar()
         TargetFrameManaBar:Hide()
         self.manaBar = CreateStatusBar(TargetFrame, 129, 12)
-        self.manaBar:SetPoint('TOPRIGHT', TargetFrame, 'TOPRIGHT', -100, -53)
+        self.manaBar:SetPoint("TOPRIGHT", TargetFrame, "TOPRIGHT", -100, -53)
         self.manaBar:SetFrameLevel(TargetFrame:GetFrameLevel())
-        self.manaBar:SetTextures(self.texpath .. 'UI-HUD-UnitFrame-Target-PortraitOn-Bar-Mana-Status.blp')
-        if UnitExists('target') then
-            local maxMana = UnitManaMax('target')
+        self.manaBar:SetTextures(self.texpath .. "UI-HUD-UnitFrame-Target-PortraitOn-Bar-Mana-Status.blp")
+        if UnitExists("target") then
+            local maxMana = UnitManaMax("target")
             if maxMana > 0 then
                 self.manaBar:Show()
                 self.manaBar.max = maxMana
-                local mana = UnitMana('target')
+                local mana = UnitMana("target")
                 self.manaBar:SetValue(mana > 0 and mana or 0.001)
-                local powerType = UnitPowerType('target')
+                local powerType = UnitPowerType("target")
                 if powerType == 0 then
                     self.manaBar:SetFillColor(0, 0, 1, 1)
                 elseif powerType == 1 then
@@ -156,8 +171,8 @@ DFRL:NewMod("Target", 1, function()
                 self.manaBar:Hide()
             end
         end
-        local cutoutColor = DFRL:GetTempDB('Target', 'cutoutColor')
-        local pulseColor = DFRL:GetTempDB('Target', 'pulseColor')
+        local cutoutColor = DFRL:GetTempDB("Target", "cutoutColor")
+        local pulseColor = DFRL:GetTempDB("Target", "pulseColor")
         self.manaBar:SetCutoutColor(cutoutColor[1], cutoutColor[2], cutoutColor[3], 1)
         self.manaBar:SetPulseColor(pulseColor[1], pulseColor[2], pulseColor[3], 1)
     end
@@ -172,11 +187,11 @@ DFRL:NewMod("Target", 1, function()
 
         self.texts.manaPercent = self.texts.manaTextFrame:CreateFontString(nil)
         self.texts.manaPercent:SetFont(cfg.font, cfg.manaFontSize, cfg.outline)
-        self.texts.manaPercent:SetPoint('LEFT', self.manaBar, 'LEFT', 5, 0)
+        self.texts.manaPercent:SetPoint("LEFT", self.manaBar, "LEFT", 5, 0)
 
         self.texts.manaValue = self.texts.manaTextFrame:CreateFontString(nil)
         self.texts.manaValue:SetFont(cfg.font, cfg.manaFontSize, cfg.outline)
-        self.texts.manaValue:SetPoint('RIGHT', self.manaBar, 'RIGHT', -12, 0)
+        self.texts.manaValue:SetPoint("RIGHT", self.manaBar, "RIGHT", -12, 0)
     end
 
     function Setup:FrameTextures()
@@ -187,6 +202,87 @@ DFRL:NewMod("Target", 1, function()
         if TargetFrameBackground.SetFrameLevel then
             TargetFrameBackground:SetFrameLevel(TargetFrame:GetFrameLevel() - 2)
         end
+    end
+
+    local CREATURE_TYPE_ICONS = {
+        -- ======== 英文客户端 (enUS) ========
+        ["Beast"] = "Interface\\Icons\\INV_Misc_MonsterClaw_01",
+        ["Dragonkin"] = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
+        ["Demon"] = "Interface\\Icons\\INV_Misc_MonsterHorn_03",
+        ["Elemental"] = "Interface\\Icons\\INV_Misc_MonsterScales_03",
+        ["Giant"] = "Interface\\Icons\\INV_Stone_GrindingStone_05",
+        ["Humanoid"] = "Interface\\Icons\\INV_Misc_MonsterHead_01",
+        ["Mechanical"] = "Interface\\Icons\\INV_Misc_Gear_01",
+        ["Undead"] = "Interface\\Icons\\INV_Misc_Bone_01",
+        ["Critter"] = "Interface\\Icons\\INV_Misc_MonsterTail_01",
+        ["Not specified"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+        ["Unknown"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+
+        [""] = "Interface\\Icons\\INV_Misc_QuestionMark", -- 1.12最常见的无分类返回
+
+        -- ======== 简体中文 (zhCN / 乌龟服汉化) ========
+        ["野兽"] = "Interface\\Icons\\INV_Misc_MonsterClaw_01",
+        ["龙类"] = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
+        ["恶魔"] = "Interface\\Icons\\INV_Misc_MonsterHorn_03",
+        ["元素生物"] = "Interface\\Icons\\INV_Misc_MonsterScales_03",
+        ["巨人"] = "Interface\\Icons\\INV_Stone_GrindingStone_05",
+        ["人型生物"] = "Interface\\Icons\\INV_Misc_MonsterHead_01",
+        ["机械"] = "Interface\\Icons\\INV_Misc_Gear_01",
+        ["亡灵"] = "Interface\\Icons\\INV_Misc_Bone_01",
+        ["小动物"] = "Interface\\Icons\\INV_Misc_MonsterTail_01",
+        ["未指定"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+        ["未知"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+    }
+
+    function Setup:CreatureTypeIcon()
+        if self.creatureTypeIcon then
+            return
+        end
+        local actionTexPath = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\actionbars\\"
+
+        local container = CreateFrame("Frame", nil, TargetFrame)
+        container:SetPoint("CENTER", TargetFrame, "CENTER", DFRL:GetTempDB("Target", "creatureTypeX"), DFRL:GetTempDB("Target", "creatureTypeY"))
+        container:SetWidth(DFRL:GetTempDB("Target", "creatureTypeSize"))
+        container:SetHeight(DFRL:GetTempDB("Target", "creatureTypeSize"))
+        container:SetFrameLevel(TargetFrame:GetFrameLevel() + 5)
+        container:Hide()
+
+        local bg = container:CreateTexture(nil, "BORDER")
+        bg:SetTexture(actionTexPath .. "HDActionBarBtn.tga")
+        bg:SetAllPoints(container)
+
+        local border = container:CreateTexture(nil, "OVERLAY")
+        border:SetTexture(actionTexPath .. "border.blp")
+        border:SetAllPoints(container)
+
+        local icon = container:CreateTexture(nil, "ARTWORK")
+        icon:SetPoint("TOPLEFT", container, "TOPLEFT", 2, -2)
+        icon:SetPoint("BOTTOMRIGHT", container, "BOTTOMRIGHT", -2, 2)
+        icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+
+        self.creatureTypeIcon = container
+        self.creatureTypeIconIcon = icon
+    end
+
+    function Setup:UpdateCreatureTypeIcon()
+        if not self.creatureTypeIcon then
+            return
+        end
+        if not DFRL:GetTempDB("Target", "showCreatureType") then
+            self.creatureTypeIcon:Hide()
+            return
+        end
+        if not UnitExists("target") or UnitIsPlayer("target") or UnitIsGhost("target") then
+            self.creatureTypeIcon:Hide()
+            return
+        end
+        local ctype = UnitCreatureType("target")
+        if not ctype or not CREATURE_TYPE_ICONS[ctype] then
+            self.creatureTypeIcon:Hide()
+            return
+        end
+        self.creatureTypeIconIcon:SetTexture(CREATURE_TYPE_ICONS[ctype])
+        self.creatureTypeIcon:Show()
     end
 
     function Setup:Portrait()
@@ -212,7 +308,9 @@ DFRL:NewMod("Target", 1, function()
     end
 
     function Setup:UpdateTexts()
-        if not UnitExists("target") then return end
+        if not UnitExists("target") then
+            return
+        end
 
         local health = UnitHealth("target")
         local maxHealth = UnitHealthMax("target")
@@ -246,13 +344,13 @@ DFRL:NewMod("Target", 1, function()
                 self.texts.healthValue:SetText(health .. (configCache.textMaxShow and "/" .. maxHealth or ""))
             end
             self.texts.healthValue:ClearAllPoints()
-            self.texts.healthValue:SetPoint('CENTER', self.healthBar, 'CENTER', 0, 0)
+            self.texts.healthValue:SetPoint("CENTER", self.healthBar, "CENTER", 0, 0)
 
             self.texts.manaPercent:SetText("")
             if maxMana > 0 then
                 self.texts.manaValue:SetText(mana .. (configCache.textMaxShow and "/" .. maxMana or ""))
                 self.texts.manaValue:ClearAllPoints()
-                self.texts.manaValue:SetPoint('CENTER', self.manaBar, 'CENTER', -0, 0)
+                self.texts.manaValue:SetPoint("CENTER", self.manaBar, "CENTER", -0, 0)
             else
                 self.texts.manaValue:SetText("")
             end
@@ -265,13 +363,13 @@ DFRL:NewMod("Target", 1, function()
                 self.texts.healthValue:SetText(health .. (configCache.textMaxShow and "/" .. maxHealth or ""))
             end
             self.texts.healthValue:ClearAllPoints()
-            self.texts.healthValue:SetPoint('RIGHT', self.healthBar, 'RIGHT', -0, 0)
+            self.texts.healthValue:SetPoint("RIGHT", self.healthBar, "RIGHT", -0, 0)
 
             if maxMana > 0 then
                 self.texts.manaPercent:SetText(manaPercentInt .. "%")
                 self.texts.manaValue:SetText(mana .. (configCache.textMaxShow and "/" .. maxMana or ""))
                 self.texts.manaValue:ClearAllPoints()
-                self.texts.manaValue:SetPoint('RIGHT', self.manaBar, 'RIGHT', -0, 0)
+                self.texts.manaValue:SetPoint("RIGHT", self.manaBar, "RIGHT", -0, 0)
             else
                 self.texts.manaPercent:SetText("")
                 self.texts.manaValue:SetText("")
@@ -308,10 +406,10 @@ DFRL:NewMod("Target", 1, function()
         _G.TargetFrame_CheckDead = function()
             originalCheckDead()
             if TargetDeadText then
-                TargetDeadText:SetFont(Setup.texts.config.font, 12, 'OUTLINE')
+                TargetDeadText:SetFont(Setup.texts.config.font, 12, "OUTLINE")
                 TargetDeadText:SetTextColor(0.7, 0.7, 0.7)
                 TargetDeadText:ClearAllPoints()
-                TargetDeadText:SetPoint('CENTER', Setup.healthBar, 'CENTER', 0, 0)
+                TargetDeadText:SetPoint("CENTER", Setup.healthBar, "CENTER", 0, 0)
             end
         end
     end
@@ -319,30 +417,32 @@ DFRL:NewMod("Target", 1, function()
     function Setup:HookClassification()
         function _G.TargetFrame_CheckClassification()
             -- frames
-            local classification = UnitClassification('target')
-            if (classification == 'worldboss') then
-                TargetFrameTexture:SetTexture(Setup.texpath .. 'UI-TargetingFrame-Boss.blp')
-            elseif (classification == 'rareelite') then
-                TargetFrameTexture:SetTexture(Setup.texpath .. 'UI-TargetingFrame-RareElite.blp')
-            elseif (classification == 'elite') then
-                TargetFrameTexture:SetTexture(Setup.texpath .. 'UI-TargetingFrame-Elite.blp')
-            elseif (classification == 'rare') then
-                TargetFrameTexture:SetTexture(Setup.texpath .. 'UI-TargetingFrame-Rare.blp')
+            local classification = UnitClassification("target")
+            if classification == "worldboss" then
+                TargetFrameTexture:SetTexture(Setup.texpath .. "UI-TargetingFrame-Boss.blp")
+            elseif classification == "rareelite" then
+                TargetFrameTexture:SetTexture(Setup.texpath .. "UI-TargetingFrame-RareElite.blp")
+            elseif classification == "elite" then
+                TargetFrameTexture:SetTexture(Setup.texpath .. "UI-TargetingFrame-Elite.blp")
+            elseif classification == "rare" then
+                TargetFrameTexture:SetTexture(Setup.texpath .. "UI-TargetingFrame-Rare.blp")
             else
-                TargetFrameTexture:SetTexture(Setup.texpath .. 'UI-TargetingFrameDF1.blp')
+                TargetFrameTexture:SetTexture(Setup.texpath .. "UI-TargetingFrameDF1.blp")
             end
         end
     end
 
     function Setup:CheckTargetTapped()
-        if not UnitExists('target') or not self.healthBar then return end
+        if not UnitExists("target") or not self.healthBar then
+            return
+        end
 
-        if UnitIsPlayer('target') then
+        if UnitIsPlayer("target") then
             self.healthBar:SetFillColor(0, 1, 0, 1)
             return
         end
 
-        if UnitIsTapped('target') and not UnitIsTappedByPlayer('target') then
+        if UnitIsTapped("target") and not UnitIsTappedByPlayer("target") then
             self.healthBar:SetFillColor(0.5, 0.5, 0.5, 1)
         else
             self.healthBar:SetFillColor(0, 1, 0, 1)
@@ -350,15 +450,17 @@ DFRL:NewMod("Target", 1, function()
     end
 
     function Setup:UpdateBarColor()
-        if not UnitExists('target') or not self.healthBar then return end
+        if not UnitExists("target") or not self.healthBar then
+            return
+        end
 
-        if not UnitIsPlayer('target') and UnitIsTapped('target') and not UnitIsTappedByPlayer('target') then
+        if not UnitIsPlayer("target") and UnitIsTapped("target") and not UnitIsTappedByPlayer("target") then
             self.healthBar:SetFillColor(0.5, 0.5, 0.5, 1)
             return
         end
 
-        if self.barColorState.colorClass and UnitIsPlayer('target') then
-            local _, class = UnitClass('target')
+        if self.barColorState.colorClass and UnitIsPlayer("target") then
+            local _, class = UnitClass("target")
             if class and RAID_CLASS_COLORS[class] then
                 local color = RAID_CLASS_COLORS[class]
                 self.healthBar:SetFillColor(color.r, color.g, color.b, 1)
@@ -367,14 +469,14 @@ DFRL:NewMod("Target", 1, function()
         end
 
         if self.barColorState.colorReaction then
-            local reaction = UnitReaction('player', 'target')
+            local reaction = UnitReaction("player", "target")
             if reaction then
                 if reaction <= 2 then
-                    self.healthBar:SetFillColor(1, 0, 0, 1)  -- hostile - Red
+                    self.healthBar:SetFillColor(1, 0, 0, 1) -- hostile - Red
                 elseif reaction == 3 or reaction == 4 then
-                    self.healthBar:SetFillColor(1, 1, 0, 1)  -- neutral - Yellow
+                    self.healthBar:SetFillColor(1, 1, 0, 1) -- neutral - Yellow
                 else
-                    self.healthBar:SetFillColor(0, 1, 0, 1)  -- friendly - Green
+                    self.healthBar:SetFillColor(0, 1, 0, 1) -- friendly - Green
                 end
                 return
             end
@@ -396,6 +498,7 @@ DFRL:NewMod("Target", 1, function()
         self:UpdateTexts()
         self:HookDeadText()
         self:HookClassification()
+        self:CreatureTypeIcon()
     end
 
     -- init setup
@@ -408,7 +511,7 @@ DFRL:NewMod("Target", 1, function()
         local intensity = DFRL:GetTempDB("Target", "targetDarkMode")
         local targetColor = DFRL:GetTempDB("Target", "targetColor")
         local r, g, b = targetColor[1] * (1 - intensity), targetColor[2] * (1 - intensity), targetColor[3] * (1 - intensity)
-        local color = value and {r, g, b} or {1, 1, 1}
+        local color = value and { r, g, b } or { 1, 1, 1 }
 
         TargetFrameTexture:SetVertexColor(color[1], color[2], color[3])
         TargetFrameBackground:SetVertexColor(color[1], color[2], color[3])
@@ -518,7 +621,7 @@ DFRL:NewMod("Target", 1, function()
         Setup:NameText()
         Setup:LevelText()
         if TargetDeadText then
-            TargetDeadText:SetFont(fontPath, 12, 'OUTLINE')
+            TargetDeadText:SetFont(fontPath, 12, "OUTLINE")
             TargetDeadText:SetTextColor(0.7, 0.7, 0.7)
         end
     end
@@ -573,6 +676,35 @@ DFRL:NewMod("Target", 1, function()
         TargetFrame:SetScale(value)
     end
 
+    callbacks.showCreatureType = function(value)
+        if value then
+            Setup:UpdateCreatureTypeIcon()
+        elseif Setup.creatureTypeIcon then
+            Setup.creatureTypeIcon:Hide()
+        end
+    end
+
+    callbacks.creatureTypeSize = function(value)
+        if Setup.creatureTypeIcon then
+            Setup.creatureTypeIcon:SetWidth(value)
+            Setup.creatureTypeIcon:SetHeight(value)
+        end
+    end
+
+    callbacks.creatureTypeX = function(value)
+        if Setup.creatureTypeIcon then
+            Setup.creatureTypeIcon:ClearAllPoints()
+            Setup.creatureTypeIcon:SetPoint("CENTER", TargetFrame, "CENTER", DFRL:GetTempDB("Target", "creatureTypeX"), DFRL:GetTempDB("Target", "creatureTypeY"))
+        end
+    end
+
+    callbacks.creatureTypeY = function(value)
+        if Setup.creatureTypeIcon then
+            Setup.creatureTypeIcon:ClearAllPoints()
+            Setup.creatureTypeIcon:SetPoint("CENTER", TargetFrame, "CENTER", DFRL:GetTempDB("Target", "creatureTypeX"), DFRL:GetTempDB("Target", "creatureTypeY"))
+        end
+    end
+
     -- event handler
     local f = CreateFrame("Frame")
     f:RegisterEvent("PLAYER_TARGET_CHANGED")
@@ -585,28 +717,36 @@ DFRL:NewMod("Target", 1, function()
     f:RegisterEvent("UNIT_FOCUS")
     f:SetScript("OnEvent", function()
         if event == "PLAYER_TARGET_CHANGED" then
-            if Setup.healthBar then Setup.healthBar:SuppressCutout() end
-            if Setup.manaBar then Setup.manaBar:SuppressCutout() end
+            if Setup.healthBar then
+                Setup.healthBar:SuppressCutout()
+            end
+            if Setup.manaBar then
+                Setup.manaBar:SuppressCutout()
+            end
         elseif event == "UPDATE_SHAPESHIFT_FORMS" then
-            if Setup.healthBar then Setup.healthBar:SuppressCutout() end
-            if Setup.manaBar then Setup.manaBar:SuppressCutout() end
+            if Setup.healthBar then
+                Setup.healthBar:SuppressCutout()
+            end
+            if Setup.manaBar then
+                Setup.manaBar:SuppressCutout()
+            end
         end
 
         if event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_ENTERING_WORLD" then
-            if Setup.healthBar and UnitExists('target') then
-                local health = UnitHealth('target')
-                local maxHealth = UnitHealthMax('target')
+            if Setup.healthBar and UnitExists("target") then
+                local health = UnitHealth("target")
+                local maxHealth = UnitHealthMax("target")
                 Setup.healthBar.max = maxHealth
                 Setup.healthBar:SetValue(health > 0 and health or 0.001)
             end
-            if Setup.manaBar and UnitExists('target') then
-                local maxMana = UnitManaMax('target')
+            if Setup.manaBar and UnitExists("target") then
+                local maxMana = UnitManaMax("target")
                 if maxMana > 0 then
                     Setup.manaBar:Show()
                     Setup.manaBar.max = maxMana
-                    local mana = UnitMana('target')
+                    local mana = UnitMana("target")
                     Setup.manaBar:SetValue(mana > 0 and mana or 0.001)
-                    local powerType = UnitPowerType('target')
+                    local powerType = UnitPowerType("target")
                     if powerType == 0 then
                         Setup.manaBar:SetFillColor(0, 0, 1, 1)
                     elseif powerType == 1 then
@@ -623,23 +763,26 @@ DFRL:NewMod("Target", 1, function()
             Setup:CheckTargetTapped()
             Setup:UpdateTexts()
             Setup:UpdateBarColor()
-        elseif (event == "UNIT_HEALTH" and arg1 == "target") or
-            (event == "UNIT_MANA" and arg1 == "target") or
-            (event == "UNIT_ENERGY" and arg1 == "target") or
-            (event == "UNIT_RAGE" and arg1 == "target") or
-            (event == "UNIT_FOCUS" and arg1 == "target") then
-            if Setup.healthBar and UnitExists('target') then
-                local health = UnitHealth('target')
-                local maxHealth = UnitHealthMax('target')
+            Setup:UpdateCreatureTypeIcon()
+        elseif
+            (event == "UNIT_HEALTH" and arg1 == "target")
+            or (event == "UNIT_MANA" and arg1 == "target")
+            or (event == "UNIT_ENERGY" and arg1 == "target")
+            or (event == "UNIT_RAGE" and arg1 == "target")
+            or (event == "UNIT_FOCUS" and arg1 == "target")
+        then
+            if Setup.healthBar and UnitExists("target") then
+                local health = UnitHealth("target")
+                local maxHealth = UnitHealthMax("target")
                 Setup.healthBar.max = maxHealth
                 Setup.healthBar:SetValue(health > 0 and health or 0.001)
             end
-            if Setup.manaBar and UnitExists('target') then
-                local maxMana = UnitManaMax('target')
+            if Setup.manaBar and UnitExists("target") then
+                local maxMana = UnitManaMax("target")
                 if maxMana > 0 then
                     Setup.manaBar:Show()
                     Setup.manaBar.max = maxMana
-                    local mana = UnitMana('target')
+                    local mana = UnitMana("target")
                     Setup.manaBar:SetValue(mana > 0 and mana or 0.001)
                 else
                     Setup.manaBar:Hide()
@@ -648,6 +791,7 @@ DFRL:NewMod("Target", 1, function()
             Setup:CheckTargetTapped()
             Setup:UpdateTexts()
             Setup:UpdateBarColor()
+            Setup:UpdateCreatureTypeIcon()
         end
 
         if event == "PLAYER_ENTERING_WORLD" then
@@ -660,8 +804,8 @@ DFRL:NewMod("Target", 1, function()
     if originalFunc then
         _G.TargetFrame_UpdateChallenges = function(player)
             originalFunc(player)
-            if string.find(TargetFrameTexture:GetTexture() or '', 'UI%-TargetingFrame_HC') then
-                TargetFrameTexture:SetTexture(Setup.texpath .. 'UI-TargetingFrameDF1_HC.blp')
+            if string.find(TargetFrameTexture:GetTexture() or "", "UI%-TargetingFrame_HC") then
+                TargetFrameTexture:SetTexture(Setup.texpath .. "UI-TargetingFrameDF1_HC.blp")
             end
         end
     end

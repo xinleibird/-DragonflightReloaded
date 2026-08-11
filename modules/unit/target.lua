@@ -206,32 +206,32 @@ DFRL:NewMod("Target", 1, function()
 
     local CREATURE_TYPE_ICONS = {
         -- ======== 英文客户端 (enUS) ========
-        ["Beast"] = "Interface\\Icons\\INV_Misc_MonsterClaw_01",
-        ["Dragonkin"] = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
-        ["Demon"] = "Interface\\Icons\\INV_Misc_MonsterHorn_03",
-        ["Elemental"] = "Interface\\Icons\\INV_Misc_MonsterScales_03",
-        ["Giant"] = "Interface\\Icons\\INV_Stone_GrindingStone_05",
-        ["Humanoid"] = "Interface\\Icons\\INV_Misc_MonsterHead_01",
-        ["Mechanical"] = "Interface\\Icons\\INV_Misc_Gear_01",
-        ["Undead"] = "Interface\\Icons\\INV_Misc_Bone_01",
-        ["Critter"] = "Interface\\Icons\\INV_Misc_MonsterTail_01",
-        ["Not specified"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-        ["Unknown"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+        ["Beast"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_01.tga",
+        ["Dragonkin"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_02.tga",
+        ["Demon"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_03.tga",
+        ["Elemental"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_04.tga",
+        ["Giant"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_05.tga",
+        ["Humanoid"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_06.tga",
+        ["Mechanical"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_07.tga",
+        ["Undead"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_08.tga",
+        ["Critter"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_09.tga",
+        ["Not specified"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
+        ["Unknown"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
 
-        [""] = "Interface\\Icons\\INV_Misc_QuestionMark", -- 1.12最常见的无分类返回
+        [""] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
 
         -- ======== 简体中文 (zhCN / 乌龟服汉化) ========
-        ["野兽"] = "Interface\\Icons\\INV_Misc_MonsterClaw_01",
-        ["龙类"] = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
-        ["恶魔"] = "Interface\\Icons\\INV_Misc_MonsterHorn_03",
-        ["元素生物"] = "Interface\\Icons\\INV_Misc_MonsterScales_03",
-        ["巨人"] = "Interface\\Icons\\INV_Stone_GrindingStone_05",
-        ["人型生物"] = "Interface\\Icons\\INV_Misc_MonsterHead_01",
-        ["机械"] = "Interface\\Icons\\INV_Misc_Gear_01",
-        ["亡灵"] = "Interface\\Icons\\INV_Misc_Bone_01",
-        ["小动物"] = "Interface\\Icons\\INV_Misc_MonsterTail_01",
-        ["未指定"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-        ["未知"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+        ["野兽"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_01.tga",
+        ["龙类"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_02.tga",
+        ["恶魔"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_03.tga",
+        ["元素生物"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_04.tga",
+        ["巨人"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_05.tga",
+        ["人型生物"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_06.tga",
+        ["机械"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_07.tga",
+        ["亡灵"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_08.tga",
+        ["小动物"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_09.tga",
+        ["未指定"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
+        ["未知"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
     }
 
     function Setup:CreatureTypeIcon()

@@ -215,10 +215,10 @@ DFRL:NewMod("Target", 1, function()
         ["Mechanical"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_07.tga",
         ["Undead"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_08.tga",
         ["Critter"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_09.tga",
-        ["Unknown"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
-        ["Not specified"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_11.tga",
+        ["Not specified"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
+        ["Unknown"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_11.tga",
 
-        [""] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
+        [""] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_11.tga",
 
         -- ======== 简体中文 (zhCN / 乌龟服汉化) ========
         ["野兽"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_01.tga",
@@ -230,8 +230,8 @@ DFRL:NewMod("Target", 1, function()
         ["机械"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_07.tga",
         ["亡灵"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_08.tga",
         ["小动物"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_09.tga",
-        ["未知"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
-        ["未指定"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_11.tga",
+        ["未指定"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_10.tga",
+        ["未知"] = "Interface\\AddOns\\-DragonflightReloaded\\media\\tex\\unitframes\\ct_11.tga",
     }
 
     function Setup:CreatureTypeIcon()

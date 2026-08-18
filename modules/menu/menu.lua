@@ -74,7 +74,7 @@ DFRL:NewMod("Menu", 1, function()
 
     function Setup:MenuFrame()
         if not self.menuframe then
-            self.menuframe = T.CreateDFRLFrame(nil, self.w, self.h)
+            self.menuframe = T.CreateDFRLFrame(nil, self.w, self.h, nil, 0.8)
             self.menuframe:SetPoint("CENTER", 0, 0)
             self.menuframe:EnableMouse(true)
             self.menuframe:Hide()

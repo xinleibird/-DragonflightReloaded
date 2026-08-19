@@ -15,7 +15,6 @@ DFRL:NewMod("Collector", 1, function()
         dragStartIndex = nil,
         buttonOrder = {},
         autoCollapseTime = 5,
-        isAutoCollapsePaused = false,
 
     }
 
@@ -170,7 +169,6 @@ DFRL:NewMod("Collector", 1, function()
         local openTime = nil
         local pausedTotal = 0
         local pausedAt = nil
-        local isAutoCollapsePaused = false
 
         local function collapse()
             if not setup.collector:IsVisible() then return end
@@ -181,7 +179,6 @@ DFRL:NewMod("Collector", 1, function()
             openTime = nil
             pausedTotal = 0
             pausedAt = nil
-            isAutoCollapsePaused = false
         end
 
         local function expand()
@@ -191,9 +188,16 @@ DFRL:NewMod("Collector", 1, function()
             openTime = GetTime()
             pausedTotal = 0
             pausedAt = nil
-            isAutoCollapsePaused = false
             setup.collector:SetScript("OnUpdate", function()
-                if not openTime or isAutoCollapsePaused then return end
+                if not openTime then return end
+                if setup:IsCursorOverCollector() then
+                    if not pausedAt then pausedAt = GetTime() end
+                    return
+                end
+                if pausedAt then
+                    pausedTotal = pausedTotal + (GetTime() - pausedAt)
+                    pausedAt = nil
+                end
                 local now = GetTime()
                 if (now - openTime) - pausedTotal >= setup.autoCollapseTime then
                     collapse()
@@ -209,25 +213,31 @@ DFRL:NewMod("Collector", 1, function()
             end
         end
 
-        toggleButton:SetScript("OnClick", function() setup:ToggleCollector() end)
-
-        local function pauseTimer()
-            isAutoCollapsePaused = true
-            if openTime and not pausedAt then pausedAt = GetTime() end
-        end
-
-        local function resumeTimer()
-            if pausedAt then
-                pausedTotal = pausedTotal + (GetTime() - pausedAt)
-                pausedAt = nil
+        function setup:IsCursorOverCollector()
+            local cx, cy = GetCursorPosition()
+            local scale = setup.collector:GetEffectiveScale()
+            local cLeft   = setup.collector:GetLeft()   * scale
+            local cRight  = setup.collector:GetRight()  * scale
+            local cTop    = setup.collector:GetTop()    * scale
+            local cBottom = setup.collector:GetBottom() * scale
+            if cx >= cLeft and cx <= cRight and cy >= cBottom and cy <= cTop then
+                return true
             end
-            isAutoCollapsePaused = false
+            local tb = DFRL.toggleButton
+            if tb and tb:IsVisible() then
+                local tScale = tb:GetEffectiveScale()
+                local tLeft   = tb:GetLeft()   * tScale
+                local tRight  = tb:GetRight()  * tScale
+                local tTop    = tb:GetTop()    * tScale
+                local tBottom = tb:GetBottom() * tScale
+                if cx >= tLeft and cx <= tRight and cy >= tBottom and cy <= tTop then
+                    return true
+                end
+            end
+            return false
         end
 
-        toggleButton:SetScript("OnEnter", pauseTimer)
-        toggleButton:SetScript("OnLeave", resumeTimer)
-        setup.collector:SetScript("OnEnter", pauseTimer)
-        setup.collector:SetScript("OnLeave", resumeTimer)
+        toggleButton:SetScript("OnClick", function() setup:ToggleCollector() end)
 
         DFRL.toggleButton = toggleButton
     end

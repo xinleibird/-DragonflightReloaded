@@ -14,6 +14,8 @@ DFRL:NewMod("Collector", 1, function()
         toggleButton = nil,
         dragStartIndex = nil,
         buttonOrder = {},
+        autoCollapseTime = 5,
+        isAutoCollapsePaused = false,
 
     }
 
@@ -157,6 +159,7 @@ DFRL:NewMod("Collector", 1, function()
     end
 
     function Setup:CreateToggleButton()
+        local setup = self
         local toggleButton = CreateFrame("Button", "MinimapButtonCollectorToggle", UIParent)
         toggleButton:SetWidth(16)
         toggleButton:SetHeight(16)
@@ -164,17 +167,67 @@ DFRL:NewMod("Collector", 1, function()
         toggleButton:SetNormalTexture(self.texpath.. "dfrl_collector_toggle.tga")
         toggleButton:SetHighlightTexture(self.texpath.. "dfrl_collector_toggle.tga")
 
-        toggleButton:SetScript("OnClick", function()
-            if self.collector:IsVisible() then
-                UIFrameFadeOut(self.collector, 0.3, 1, 0)
-                self.collector.fadeInfo.finishedFunc = self.collector.Hide
-                self.collector.fadeInfo.finishedArg1 = self.collector
+        local openTime = nil
+        local pausedTotal = 0
+        local pausedAt = nil
+        local isAutoCollapsePaused = false
+
+        local function collapse()
+            if not setup.collector:IsVisible() then return end
+            UIFrameFadeOut(setup.collector, 0.3, 1, 0)
+            setup.collector.fadeInfo.finishedFunc = setup.collector.Hide
+            setup.collector.fadeInfo.finishedArg1 = setup.collector
+            setup.collector:SetScript("OnUpdate", nil)
+            openTime = nil
+            pausedTotal = 0
+            pausedAt = nil
+            isAutoCollapsePaused = false
+        end
+
+        local function expand()
+            setup.collector:SetAlpha(0)
+            setup.collector:Show()
+            UIFrameFadeIn(setup.collector, 0.3, 0, 1)
+            openTime = GetTime()
+            pausedTotal = 0
+            pausedAt = nil
+            isAutoCollapsePaused = false
+            setup.collector:SetScript("OnUpdate", function()
+                if not openTime or isAutoCollapsePaused then return end
+                local now = GetTime()
+                if (now - openTime) - pausedTotal >= setup.autoCollapseTime then
+                    collapse()
+                end
+            end)
+        end
+
+        function setup:ToggleCollector()
+            if setup.collector:IsVisible() then
+                collapse()
             else
-                self.collector:SetAlpha(0)
-                self.collector:Show()
-                UIFrameFadeIn(self.collector, 0.3, 0, 1)
+                expand()
             end
-        end)
+        end
+
+        toggleButton:SetScript("OnClick", function() setup:ToggleCollector() end)
+
+        local function pauseTimer()
+            isAutoCollapsePaused = true
+            if openTime and not pausedAt then pausedAt = GetTime() end
+        end
+
+        local function resumeTimer()
+            if pausedAt then
+                pausedTotal = pausedTotal + (GetTime() - pausedAt)
+                pausedAt = nil
+            end
+            isAutoCollapsePaused = false
+        end
+
+        toggleButton:SetScript("OnEnter", pauseTimer)
+        toggleButton:SetScript("OnLeave", resumeTimer)
+        setup.collector:SetScript("OnEnter", pauseTimer)
+        setup.collector:SetScript("OnLeave", resumeTimer)
 
         DFRL.toggleButton = toggleButton
     end

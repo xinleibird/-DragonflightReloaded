@@ -7,6 +7,8 @@ DFRL:NewDefaults("Micro", {
     microAlpha = {1, "slider", {0.1, 1}, nil, "micro basic", 5, "Adjusts the transparency of the micro menu", nil, nil},
     microSpacing = {3, "slider", {0.5, 15}, nil, "micro basic", 6, "Adjusts spacing between micro menu buttons", nil, nil},
     smallFPS = {false, "checkbox", nil, nil, "tweaks", 7, "Show smaller FPS/MS watcher (CTRL+R)", nil, nil},
+    showMicroMenu = {true, "checkbox", nil, nil, "Visibility", 0, "Show the micro menu button bar", nil, nil},
+    showMicroFPS = {true, "checkbox", nil, nil, "Visibility", 1, "Show FPS / MS / bandwidth display", nil, nil},
 })
 
 DFRL:NewMod("Micro", 1, function()
@@ -321,6 +323,7 @@ DFRL:NewMod("Micro", 1, function()
         self.netStatsFrame:Hide()
 
         hooksecurefunc("ToggleFramerate", function()
+            if not DFRL:GetTempDB("Micro", "showMicroFPS") then return end
             local checkTimer = CreateFrame("Frame")
             checkTimer:SetScript("OnUpdate", function()
                 if (this.tick or 0) > GetTime() then return end
@@ -653,6 +656,39 @@ DFRL:NewMod("Micro", 1, function()
     end
 
     DFRL.activeScripts["NetStatsFrameScript"] = false
+
+    callbacks.showMicroMenu = function(value)
+        if not Setup.microMenuContainer then return end
+        if value then
+            Setup.microMenuContainer:Show()
+        else
+            Setup.microMenuContainer:Hide()
+        end
+    end
+
+    callbacks.showMicroFPS = function(value)
+        if Setup.netStatsFrame then
+            if value then
+                if FramerateLabel and FramerateLabel:IsVisible() then
+                    Setup.netStatsFrame:Show()
+                    DFRL.activeScripts["NetStatsFrameScript"] = true
+                end
+            else
+                Setup.netStatsFrame:Hide()
+                DFRL.activeScripts["NetStatsFrameScript"] = false
+            end
+        end
+        if Setup.latencyIndicator then
+            if value then
+                Setup.latencyIndicator:Show()
+            else
+                Setup.latencyIndicator:Hide()
+            end
+        end
+    end
+
+    callbacks.showMicroMenu(DFRL:GetTempDB("Micro", "showMicroMenu"))
+    callbacks.showMicroFPS(DFRL:GetTempDB("Micro", "showMicroFPS"))
 
     -- execute callbacks
     DFRL:NewCallbacks("Micro", callbacks)

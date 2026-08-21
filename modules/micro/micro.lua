@@ -664,6 +664,13 @@ DFRL:NewMod("Micro", 1, function()
         else
             Setup.microMenuContainer:Hide()
         end
+        if Setup.latencyIndicator then
+            if value then
+                Setup.latencyIndicator:Show()
+            else
+                Setup.latencyIndicator:Hide()
+            end
+        end
     end
 
     callbacks.showMicroFPS = function(value)
@@ -676,13 +683,6 @@ DFRL:NewMod("Micro", 1, function()
             else
                 Setup.netStatsFrame:Hide()
                 DFRL.activeScripts["NetStatsFrameScript"] = false
-            end
-        end
-        if Setup.latencyIndicator then
-            if value then
-                Setup.latencyIndicator:Show()
-            else
-                Setup.latencyIndicator:Hide()
             end
         end
     end

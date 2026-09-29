@@ -35,6 +35,8 @@ DFRL:NewDefaults("Player", {
                  nil, nil},
     glowAlpha = {1, "slider", {0.1, 1}, "combatGlow", "Combat Effects", 25,
                  "Adjust the maximum alpha of the combat pulsing", nil, nil},
+    combatScreenGlow = {true, "checkbox", nil, "combatGlow", "Combat Effects", 26,
+                        "Show glowing red screen edges while in combat", nil, nil},
     restingGlow = {true, "checkbox", nil, nil, "Resting Effects", 26, "Enable resting glow animation", nil, nil},
     restingSpeed = {1, "slider", {0.4, 5}, "restingGlow", "Resting Effects", 27,
                     "Adjust the speed of the resting pulsing", nil, nil},
@@ -224,6 +226,20 @@ DFRL:NewMod("Player", 1, function()
         Setup.combatIdentifier:SetVertexColor(1, 0.8, 0.8)
         Setup.combatIdentifier:SetBlendMode("ADD")
         Setup.combatIdentifier:SetAlpha(0)
+
+        Setup.screenGlowFrame = CreateFrame("Frame", "DFRL_CombatScreenGlow", UIParent)
+        Setup.screenGlowFrame:SetFrameStrata("BACKGROUND")
+        Setup.screenGlowFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
+        Setup.screenGlowFrame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 0)
+        Setup.screenGlowFrame:SetBackdrop({
+            edgeFile = Setup.texpath2 .. "combat_glow_border",
+            edgeSize = 16,
+            insets = {left = 16, right = 16, top = 16, bottom = 16},
+        })
+        Setup.screenGlowFrame:SetBackdropBorderColor(1, 0.2, 0, 0)
+        Setup.screenGlowFrame:Hide()
+
+        Setup.screenGlowEnabled = true
     end
 
     function Setup:RestingGlow()
@@ -778,6 +794,18 @@ DFRL:NewMod("Player", 1, function()
         local pulseTime = 0
         local pulseDuration = 1 / Setup.combatGlow.fadeSpeed
 
+        local applyScreenGlow
+        if Setup.screenGlowFrame then
+            applyScreenGlow = function(a)
+                if not Setup.screenGlowEnabled then
+                    Setup.screenGlowFrame:Hide()
+                    return
+                end
+                Setup.screenGlowFrame:Show()
+                Setup.screenGlowFrame:SetBackdropBorderColor(1, 0.2 + a, a, 1 - a)
+            end
+        end
+
         if value then
             Setup.combatOverlay:SetScript("OnUpdate", function()
                 if (this.tick or 0) > GetTime() then
@@ -795,6 +823,7 @@ DFRL:NewMod("Player", 1, function()
                     end
                     Setup.combatOverlayTex:SetAlpha(alpha)
                     Setup.combatIdentifier:SetAlpha(alpha)
+                    if applyScreenGlow then applyScreenGlow(alpha) end
                     DFRL.activeScripts["CombatGlowScript"] = true
                     return
                 end
@@ -808,12 +837,16 @@ DFRL:NewMod("Player", 1, function()
                                   (0.5 + 0.5 * math.sin(progress * 2 * math.pi))
                 Setup.combatOverlayTex:SetAlpha(alpha)
                 Setup.combatIdentifier:SetAlpha(alpha)
+                if applyScreenGlow then applyScreenGlow(alpha) end
                 DFRL.activeScripts["CombatGlowScript"] = true
             end)
         else
             Setup.combatOverlay:SetScript("OnUpdate", nil)
             Setup.combatOverlayTex:SetAlpha(0)
             Setup.combatIdentifier:SetAlpha(0)
+            if Setup.screenGlowFrame then
+                Setup.screenGlowFrame:Hide()
+            end
         end
     end
 
@@ -825,6 +858,13 @@ DFRL:NewMod("Player", 1, function()
     callbacks.glowAlpha = function(value)
         Setup.combatGlow.alphaMax = value
         callbacks.combatGlow(DFRL:GetTempDB("Player", "combatGlow"))
+    end
+
+    callbacks.combatScreenGlow = function(value)
+        Setup.screenGlowEnabled = value
+        if Setup.screenGlowFrame and not value then
+            Setup.screenGlowFrame:Hide()
+        end
     end
 
     callbacks.restingGlow = function(value)

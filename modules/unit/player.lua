@@ -802,7 +802,7 @@ DFRL:NewMod("Player", 1, function()
                     return
                 end
                 Setup.screenGlowFrame:Show()
-                Setup.screenGlowFrame:SetBackdropBorderColor(1, 0.2 + a, a, 1 - a)
+                Setup.screenGlowFrame:SetBackdropBorderColor(1, 0.2, 0, a)
             end
         end
 

@@ -815,18 +815,6 @@ DFRL:NewMod("Player", 1, function()
             Setup.combatOverlayTex:SetAlpha(0)
             Setup.combatIdentifier:SetAlpha(0)
         end
-
-        local f = CreateFrame("Frame")
-        f:RegisterEvent("PLAYER_REGEN_DISABLED")
-        f:RegisterEvent("PLAYER_REGEN_ENABLED")
-        f:SetScript("OnEvent", function()
-            if event == "PLAYER_REGEN_DISABLED" then
-                currentAlpha = Setup.combatGlow.alphaMin
-                fadeDirection = 1
-            elseif event == "PLAYER_REGEN_ENABLED" then
-                fadeDirection = -1
-            end
-        end)
     end
 
     callbacks.glowSpeed = function(value)
@@ -882,13 +870,6 @@ DFRL:NewMod("Player", 1, function()
             Setup.restingOverlay:SetScript("OnUpdate", nil)
             Setup.restingOverlayTex:SetAlpha(0)
         end
-
-        local f = CreateFrame("Frame")
-        f:RegisterEvent("PLAYER_UPDATE_RESTING")
-        f:SetScript("OnEvent", function()
-            currentAlpha = Setup.restingGlow.alphaMin
-            fadeDirection = 1
-        end)
     end
 
     callbacks.restingSpeed = function(value)
